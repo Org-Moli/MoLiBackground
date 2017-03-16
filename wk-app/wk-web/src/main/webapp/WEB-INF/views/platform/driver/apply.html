@@ -1,0 +1,305 @@
+<%
+layout("/layouts/platform.html"){
+%>
+<header class="header navbar bg-white shadow">
+    <div class="pull-right">
+        <div class="btn-group tool-button">
+            <button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 清空日志</button>
+        </div>
+    </div>
+</header>
+<div class=panel-body style="padding-top: 50px;">
+    <div class="table-responsive no-border">
+        <input id="unitid" type="hidden">
+        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+            <div class="toolbar"></div>
+            <table class="table table-bordered table-striped mg-t datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1663px;">
+                <thead>
+                    <tr role="row" class="selected">
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="日志类型: 以升序排列此列" style="width: 107px;">姓名</th>
+                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="日志内容" style="width: 174px;">身份证</th>
+                        <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="执行类" style="width: 118px;">手机号</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="操作人: 以升序排列此列" style="width: 81px;">紧急联系人</th>
+                        <th class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="操作时间: 以降序排列此列" style="width: 177px;" aria-sort="ascending">邀请码</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="操作IP: 以升序排列此列" style="width: 118px;">申请时间</th>
+                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="操作IP: 以升序排列此列" style="width: 118px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr role="row" class="odd selected">
+                        <td>测试人员1</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:05</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td>测试人员2</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:14</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>测试人员3</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:21</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td>测试人员4</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:23</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>测试人员5</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:38</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td>测试人员6</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:51</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>测试人员7</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:53</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td>测试人员8</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:32:54</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="odd">
+                        <td>测试人员9</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:36:00</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr role="row" class="even">
+                        <td>测试人员10</td>
+                        <td>342423189812312311</td>
+                        <td>18612345678</td>
+                        <td>18612345678</td>
+                        <td>APPLY_20170316001</td>
+                        <td class="sorting_1">2017-03-15 17:37:17</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                    <i class="ti-settings"></i>
+                                    <span class="ti-angle-down"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">查看</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">拒绝</a></li>
+                                    <li class="divider"></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+        <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">显示第 11 至 20 条结果，共 57 条 (每页显示 10 条)</div>
+        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+            <ul class="pagination">
+                <li class="paginate_button previous" id="DataTables_Table_0_previous">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0">上页</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a>
+                </li>
+                <li class="paginate_button active">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0">2</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="3" tabindex="0">3</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0">4</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="5" tabindex="0">5</a>
+                </li>
+                <li class="paginate_button ">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="6" tabindex="0">6</a>
+                </li>
+                <li class="paginate_button next" id="DataTables_Table_0_next">
+                    <a href="http://localhost:8080/platform/sys/log#" aria-controls="DataTables_Table_0" data-dt-idx="7" tabindex="0">下页</a>
+                </li>
+            </ul>
+        </div>
+        </div>
+        </table>
+    </div>
+</div>
+<div id="dialogDelete" class="modal fade bs-modal-sm" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">删除</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        删除后无法恢复，确定删除吗？ <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                <button id="ok" type="button" class="btn btn-primary" data-loading-text="正在删除...">确 定</button>
+            </div>
+        </div>
+    </div>
+</div>
+<%}%>

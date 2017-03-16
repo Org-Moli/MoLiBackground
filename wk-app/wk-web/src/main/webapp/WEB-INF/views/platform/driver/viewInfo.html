@@ -1,0 +1,169 @@
+<%
+layout("/layouts/platform.html"){
+%>
+<style>
+    #locationDiv {width:800px; height: 300px; }
+</style>
+<header class="header navbar bg-white shadow">
+    <div class="btn-group tool-button">
+        <a class="btn btn-primary navbar-btn" href="${base}/platform/driver/drivers" data-pjax><i class="ti-angle-left"></i> 返回</a>
+    </div>
+</header>
+
+<div class="content-wrap">
+    <div class="wrapper" style="min-height:500px;">
+        <section class="panel panel-form">
+            <form id="addForm" role="form" class="form-horizontal parsley-form" data-parsley-validate
+                  action="${base}/platform/wx/reply/news/addDo" method="post">
+                <div class="row mb10">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">订单号</label>
+                            <div class="col-sm-8">
+                                <p>OD20170316001</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">起始地</label>
+                            <div class="col-sm-8">
+                                <p>上海</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">目的地</label>
+                            <div class="col-sm-8">
+                                <p>广州</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">距离</label>
+                            <div class="col-sm-8">
+                                <p>2000KM</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">金额</label>
+                            <div class="col-sm-8">
+                                ￥2000.00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">当前位置</label>
+                            <div class="col-sm-8" id="locationDiv">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">车牌号码</label>
+                            <div class="col-sm-8">
+                                <p>沪A:SL123</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">驾驶证号</label>
+                            <div class="col-sm-8">
+                                <p>450481199209168878</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">驾驶证图片</label>
+                            <div class="col-sm-8">
+                                <img src="/assets/img/jsz1.jpeg" style="width: 800px;height: 400px;"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">驾驶证图片</label>
+                            <div class="col-sm-8">
+                                <img src="/assets/img/jsz2.jpeg" style="width: 800px;height: 400px;"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" style="text-align: center;">驾驶证有效期</label>
+                            <div class="col-sm-8">
+                                2001-07-06 ~ 2022-07-06
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                </div>
+                <div class="col-lg-6">
+                </div>
+            </form>
+        </section>
+
+    </div>
+</div>
+<script language="JavaScript">
+    var map = new AMap.Map('locationDiv',{
+        resizeEnable: true,
+        zoom: 10,
+        center: [116.480983, 40.0958]
+    });
+    var marker = new AMap.Marker({
+        position: [116.480983, 39.989628],//marker所在的位置
+        map:map//创建时直接赋予map属性
+    });
+    function clearFile() {
+        $("#img").html("");
+        $("#queue").html("");
+        $("#picUrl").val("");
+    }
+    $(document).ready(function () {
+        $('#file_upload').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '请选择图片',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img").html("<img src='" + data.data + "' style='width:150px;height:95px;'>");
+                    $("#picUrl").val('http://${AppDomain}${base}'+data.data);
+                } else {
+                    clearFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearFile();
+            },
+            'onClearQueue': function (queue) {
+                clearFile();
+            },
+            'onCancel': function () {
+                clearFile();
+            }
+        });
+        $('#addForm').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function (arr, form, options) {
+                form.find("button:submit").button("loading");
+            },
+            success: function (data, statusText, xhr, form) {
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    clearFile();
+                    form.resetForm();
+                } else {
+                    Toast.error(data.msg);
+                }
+                form.find("button:submit").button("reset");
+            }
+        });
+    });
+</script>
+
+
+<%}%>

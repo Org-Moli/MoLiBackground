@@ -329,6 +329,7 @@
 <script src="${base!}/assets/js/main.js"></script>
 <script src="${base!}/assets/js/page.js"></script>
 <script src="${base!}/assets/js/date.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=9a8a98c12c0e1c1ea82da4d3cf0a12c0"></script>
 
 <script type="text/javascript">
     function bindLeft(){
@@ -342,8 +343,8 @@
     $(document).ready(function () {
 
         if($.support.pjax) {
-              <%if(@shiro.getPrincipalProperty('loginPjax')){%>
-            $(document).pjax('a[data-pjax]', '#container', {maxCacheLength:0,push:false, replace:true,fragment: '#container', timeout: 8000});
+            <%if(@shiro.getPrincipalProperty('loginPjax')){%>
+                $(document).pjax('a[data-pjax]', '#container', {maxCacheLength:0,push:false, replace:true,fragment: '#container', timeout: 8000});
             <%}%>
             bindLeft();
             $('#topnav a[data-pjax]').on('click',function(){
