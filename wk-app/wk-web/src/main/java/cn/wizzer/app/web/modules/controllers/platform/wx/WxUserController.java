@@ -58,7 +58,7 @@ public class WxUserController {
             cnd.and("wxid", "=", wxid);
         }
         if (!Strings.isBlank(nickname)) {
-            cnd.and("nickname", "like", "%" + nickname + "%");
+            cnd.and("username", "like", "%" + nickname + "%");
         }
         return wxUserService.data(length, start, draw, order, columns, cnd, null);
     }

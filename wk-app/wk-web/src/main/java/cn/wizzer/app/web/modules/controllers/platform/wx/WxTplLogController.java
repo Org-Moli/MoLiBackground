@@ -47,7 +47,7 @@ public class WxTplLogController {
             cnd.and("wxid", "=", wxid);
         }
         if (!Strings.isBlank(nickname)) {
-            cnd.and("nickname", "like", "%" + nickname + "%");
+            cnd.and("username", "like", "%" + nickname + "%");
         }
         if (!Strings.isBlank(wxid)) {
             cnd.and("openid", "=", openid);

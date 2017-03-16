@@ -61,7 +61,7 @@ public class WxMsgUserController {
             cnd.and("wxid", "=", wxid);
         }
         if (!Strings.isBlank(nickname)) {
-            cnd.and("nickname", "like", "%" + nickname + "%");
+            cnd.and("username", "like", "%" + nickname + "%");
         }
         if (!Strings.isBlank(content)) {
             cnd.and("content", "like", "%" + content + "%");
