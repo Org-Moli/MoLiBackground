@@ -45,4 +45,11 @@ public class DriverManageController {
     public void viewDriverInfo() {
 
     }
+
+    @At("/orderList")
+    @Ok("beetl:/platform/driver/order.html")
+    @RequiresAuthentication
+    public void order() {
+
+    }
 }
