@@ -44,7 +44,7 @@ layout("/layouts/platform.html"){
                                     <span class="ti-angle-down"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/platform/driver/viewDriver/ba17c922e7d34029ac7f1d415d575979" data-pjax="">派单</a></li>
+                                    <li><a href="javascript:void(0);" data-toggle="modal" data-target="#dialogUserSelect">派单</a></li>
                                     <li class="divider"></li>
                                     <li><a href="javascript:;" onclick="del('ba17c922e7d34029ac7f1d415d575979')">取消</a></li>
                                     <li class="divider"></li>
@@ -306,6 +306,55 @@ layout("/layouts/platform.html"){
                 <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
                 <button id="ok" type="button" class="btn btn-primary" data-loading-text="正在删除...">确 定</button>
             </div>
+        </div>
+    </div>
+</div>
+<div id="dialogUserSelect" class="modal fade bs-modal-sm" tabindex="-3" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" style="width: 700px;">
+        <div class="modal-content" style="width: 700px;"><section class="content-wrap bg-white">
+            <header class="header navbar bg-white shadow">
+                <div class="pull-left offscreen-left" style="padding-top:15px;">
+                    <div class="form-group">
+                        <input id="name" type="text" onclick="this.value='';" placeholder="请输入用户名或昵称">
+                    </div>
+                </div>
+                <div class="pull-right offscreen-right btn-group tool-button">
+                    <a class="btn btn-primary navbar-btn" onclick="_selectOn()">确定</a>
+                </div>
+            </header>
+            <div class="panel-body" style="padding-top: 50px;">
+                <div class="table-responsive no-border" style="padding-top: 5px;">
+                    <input id="unitid" type="hidden">
+                    <div id="datatable_select_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div class="toolbar"></div>
+                        <table id="datatable_select" class="table table-bordered table-striped mg-t datatable dataTable no-footer" role="grid" aria-describedby="datatable_select_info" style="width: 100%;">
+                            <thead>
+                            <tr role="row">
+                                <th class="sorting_desc" tabindex="0" aria-controls="datatable_select"
+                                    rowspan="1" colspan="1" aria-sort="descending" aria-label="用户名: 以升序排列此列" style="width: 0px;">驾驶员</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable_select"
+                                    rowspan="1" colspan="1" aria-label="姓名/昵称: 以升序排列此列" style="width: 0px;">手机号</th>
+                                <th class="sorting" tabindex="0" aria-controls="datatable_select"
+                                    rowspan="1" colspan="1" aria-label="状态: 以升序排列此列" style="width: 0px;">状态</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">李师傅</td>
+                                <td>13612345678</td>
+                                <td>空闲</i></td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">李师傅</td>
+                                <td>13612345678</td>
+                                <td>空闲</i></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
         </div>
     </div>
 </div>

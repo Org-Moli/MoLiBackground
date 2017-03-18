@@ -5,6 +5,8 @@ import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>名称</p>
  * <p/>
@@ -50,6 +52,13 @@ public class DriverManageController {
     @Ok("beetl:/platform/driver/order.html")
     @RequiresAuthentication
     public void order() {
+
+    }
+
+    @At("/selectDriver")
+    @Ok("beetl:/platform/sys/role/selectUser.html")
+    @RequiresAuthentication
+    public void selectDriver(HttpServletRequest req) {
 
     }
 }
