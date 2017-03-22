@@ -1,0 +1,357 @@
+<%
+layout("/layouts/platform.html"){
+%>
+<header class="header navbar bg-white shadow">
+    <div class="btn-group tool-button">
+        <a class="btn btn-primary navbar-btn" href="${base}/platform/user/info" data-pjax><i class="ti-angle-left"></i> 返回</a>
+    </div>
+</header>
+
+<div class="content-wrap">
+    <div class="wrapper" style="min-height:500px;">
+        <section class="panel panel-form">
+            <form id="addForm" role="form" class="form-horizontal parsley-form" data-parsley-validate
+                  action="${base}/platform/user/info/addDo" method="post">
+                <div class="row mb10">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="headImg" class="col-sm-2 control-label">司机头像</label>
+                            <div class="col-sm-8">
+                                <div id="queue_headImg"></div>
+                                <div>
+                                    <input id="file_upload_headImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_headImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.headImg)){%>
+                                    <img src='${obj.headImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#headImg').val('');$('#img_headImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="headImg" name="headImg" value="${obj.headImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="papersImg" class="col-sm-2 control-label">驾驶证照片</label>
+                            <div class="col-sm-8">
+                                <div id="queue_papersImg"></div>
+                                <div>
+                                    <input id="file_upload_papersImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_papersImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.papersImg)){%>
+                                    <img src='${obj.papersImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#papersImg').val('');$('#img_papersImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="papersImg" name="papersImg" value="${obj.papersImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="personalImg" class="col-sm-2 control-label">司机全身照</label>
+                            <div class="col-sm-8">
+                                <div id="queue_personalImg"></div>
+                                <div>
+                                    <input id="file_upload_personalImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_personalImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.personalImg)){%>
+                                    <img src='${obj.personalImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#personalImg').val('');$('#img_personalImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="personalImg" name="personalImg" value="${obj.personalImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb10">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="jobNumber" class="col-sm-2 control-label">工号 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="jobNumber" class="form-control" name="jobNumber" data-parsley-required="true" placeholder="工号为2-20个字符，只能为数字和字母的组合">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nickName" class="col-sm-2 control-label">昵称 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="nickName" class="form-control" name="nickName" data-parsley-required="true" placeholder="填写司机昵称，用于APP显示">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userName" class="col-sm-2 control-label">真实姓名 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="userName" class="form-control" name="userName" data-parsley-required="true" placeholder="填写司机真实姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">身份证号 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="cardNo" class="form-control" name="cardNo" data-parsley-required="true" onblur="chooseSex(this);" placeholder="填写司机身份证号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input name="sex" type="radio" value="1" checked="checked"/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input name="sex" type="radio" value="0"/> 女
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">手机号 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                            <input type="text" id="mobile" class="form-control" name="mobile" data-parsley-required="true" placeholder="填写司机手机号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="papersTime" class="col-sm-2 control-label">领证时间 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                            <input type="text" id="papersTime" class="form-control" name="papersTime" data-parsley-required="true" placeholder="领证时间">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emptypeType" class="col-sm-2 control-label">员工类型 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                            <input type="text" id="emptypeType" class="form-control" name="emptypeType" data-parsley-required="true" placeholder="员工类型">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="djCnt" class="col-sm-2 control-label">代驾次数</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="djCnt" class="form-control" name="djCnt" data-parsley-required="true" placeholder="代驾次数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="workStatus" class="col-sm-2 control-label">介绍人</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="workStatus" class="form-control" name="workStatus" data-parsley-required="true" placeholder="状态">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nativePlace" class="col-sm-2 control-label">籍贯</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="nativePlace" class="form-control" name="nativePlace" data-parsley-required="true" placeholder="籍贯">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="col-sm-2 control-label">家庭住址</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="address" class="form-control" name="address" data-parsley-required="true" placeholder="入职时间">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContact" class="col-sm-2 control-label">紧急联系人</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="emergencyContact" class="form-control" name="emergencyContact" data-parsley-required="true" placeholder="紧急联系人">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactTel" class="col-sm-2 control-label">紧急联系人电话</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="emergencyContactTel" class="form-control" name="emergencyContactTel" data-parsley-required="true" placeholder="紧急联系人电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactTel" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="remark" class="form-control" name="remark" data-parsley-required="true" placeholder="备注">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="form-group text-center">
+                        <label></label>
+
+                        <div>
+                            <button class="btn btn-primary btn-block btn-lg btn-parsley" data-loading-text="正在提交...">提 交</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+<script language="JavaScript">
+    $(document).ready(function () {
+        $('#addForm').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function (arr, form, options) {
+                form.find("button:submit").button("loading");
+            },
+            success: function (data, statusText, xhr, form) {
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    form.resetForm();
+                } else {
+                    Toast.error(data.msg);
+                }
+                form.find("button:submit").button("reset");
+            }
+        });
+        $('#file_upload_headImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机头像',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_headImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    alert(data.data);
+                    Toast.success(data.msg);
+                    $("#img_headImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#headImg").val(data.data);
+                } else {
+                    clearHeadImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearHeadImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearHeadImgFile();
+            },
+            'onCancel': function () {
+                clearHeadImgFile();
+            }
+        });
+        $('#file_upload_papersImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机驾驶证照片',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_papersImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img_papersImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#papersImg").val(data.data);
+                } else {
+                    clearPapersImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearPapersImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearPapersImgFile();
+            },
+            'onCancel': function () {
+                clearPapersImgFile();
+            }
+        });
+        $('#file_upload_personalImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机全身照',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_personalImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img_personalImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#personalImg").val(data.data);
+                } else {
+                    clearPersonalImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearPersonalImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearPersonalImgFile();
+            },
+            'onCancel': function () {
+                clearPersonalImgFile();
+            }
+        });
+    });
+
+    function clearHeadImgFile() {
+        $("#img_headImg").html("");
+        $("#queue_headImg").html("");
+        $("#headImg").val("");
+    }
+    function clearPapersImgFile() {
+        $("#img_papersImg").html("");
+        $("#queue_papersImg").html("");
+        $("#papersImg").val("");
+    }
+    function clearPersonalImgFile() {
+        $("#img_personalImg").html("");
+        $("#queue_personalImg").html("");
+        $("#personalImg").val("");
+    }
+
+    function chooseSex(obj)
+    {
+        var cardNo_val = $(obj).val().trim();
+        if(cardNo_val.length > 0)
+        {
+            if(cardNo_val.length == 15)
+            {
+                var _sexIndex = cardNo_val.substr(14,1);
+                if(!isNaN(_sexIndex))
+                {
+                    if(_sexIndex %2 == 0)
+                    {
+                        $("input[type='radio'][name='sex'][value='0']").prop("checked","ckecked");
+                    }
+                    else
+                    {
+                        $("input[type='radio'][name='sex'][value='1']").prop("checked","ckecked");
+                    }
+                }
+            }
+            else if(cardNo_val.length == 18)
+            {
+                var _sexIndex = cardNo_val.substr(16,1);
+                if(!isNaN(_sexIndex))
+                {
+                    if(_sexIndex %2 == 0)
+                    {
+                        $("input[type='radio'][name='sex'][value='0']").prop("checked","ckecked");
+                    }
+                    else
+                    {
+                        $("input[type='radio'][name='sex'][value='1']").prop("checked","ckecked");
+                    }
+                }
+            }
+        }
+    }
+</script>
+<%}%>
+
+
