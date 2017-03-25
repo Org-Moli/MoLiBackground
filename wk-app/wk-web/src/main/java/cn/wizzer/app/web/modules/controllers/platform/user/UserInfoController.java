@@ -46,17 +46,20 @@ public class UserInfoController {
     @RequiresPermissions("user.manager.driver.add")
     @RequiresAuthentication()
     public void add() {
-
     }
 
     @At
     @Ok("json")
-    @SLog(tag = "新建User_Info", msg = "")
+    @SLog(tag = "新建司机工号[${args[0].jobNumber}]", msg = "")
     public Object addDo(@Param("..") User_Info userInfo, HttpServletRequest req) {
 		try {
+            int count = userInfoService.countUser();
+            String jobNumber = "DR" + String.format("%6d", count + 1).replace(" ", "0");
+            userInfo.setJobNumber(jobNumber);
 			userInfoService.insert(userInfo);
 			return Result.success("system.success");
 		} catch (Exception e) {
+            e.printStackTrace();
 			return Result.error("system.error");
 		}
     }
@@ -74,7 +77,6 @@ public class UserInfoController {
     public Object editDo(@Param("..") User_Info userInfo, HttpServletRequest req) {
 		try {
 
-			userInfo.setOpAt((int) (System.currentTimeMillis() / 1000));
 			userInfoService.updateIgnoreNull(userInfo);
 			return Result.success("system.success");
 		} catch (Exception e) {

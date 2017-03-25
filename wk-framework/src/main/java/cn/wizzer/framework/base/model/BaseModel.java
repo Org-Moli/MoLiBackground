@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 public abstract class BaseModel implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column
+    @Column("opBy")
     @Comment("操作人")
     @Prev(els = @EL("$me.uid()"))
     @ColDefine(type = ColType.VARCHAR, width = 32)

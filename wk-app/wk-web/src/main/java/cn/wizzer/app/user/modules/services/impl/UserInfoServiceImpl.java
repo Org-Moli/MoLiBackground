@@ -21,4 +21,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
     {
         super(dao);
     }
+
+    @Override
+    public int countUser()
+    {
+        return this.count("user_info");
+    }
 }

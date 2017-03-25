@@ -16,18 +16,21 @@ import java.util.Date;
  * @Date 2017/3/22
  */
 @Table("user_info")
-public class User_Info extends BaseModel implements Serializable{
+public class User_Info implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Prev
     private Integer id;
 
     @Column
     @Comment("昵称")
+    @ColDefine(type = ColType.VARCHAR, width = 50)
     private String nickName;
 
-    @Column
+    @Name
+    @Column("userName")
     @Comment("真实姓名")
     private String userName;
 
@@ -128,6 +131,9 @@ public class User_Info extends BaseModel implements Serializable{
 
     @Column
     private String remark;
+
+    @Column
+    private Integer sysUnitId;
 
     public Integer getId()
     {
@@ -447,5 +453,15 @@ public class User_Info extends BaseModel implements Serializable{
     public void setRemark(String remark)
     {
         this.remark = remark;
+    }
+
+    public Integer getSysUnitId()
+    {
+        return sysUnitId;
+    }
+
+    public void setSysUnitId(Integer sysUnitId)
+    {
+        this.sysUnitId = sysUnitId;
     }
 }
