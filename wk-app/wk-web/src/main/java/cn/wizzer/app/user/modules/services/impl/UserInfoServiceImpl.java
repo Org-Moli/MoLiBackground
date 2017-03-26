@@ -27,4 +27,15 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
     {
         return this.count("user_info");
     }
+
+    @Override
+    public User_Info findById(Integer id) {
+        return this.fetch(id);
+    }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        User_Info user_info = this.fetch(id);
+        dao().delete(user_info);
+    }
 }

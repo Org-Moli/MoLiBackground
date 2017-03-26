@@ -60,6 +60,26 @@ layout("/layouts/platform.html"){
         </div>
     </div>
 </div>
+<div id="wordDiv" class="modal fade bs-modal-sm" tabindex="-2" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="wordDiv_title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12" id="wordDiv_content">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取  消</button>
+                <button type="button" id="work_sure" data-loading-text="正在操作..." class="btn btn-primary" >确  定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script language="JavaScript">
     var datatable;
     function initDatatable() {
@@ -104,13 +124,64 @@ layout("/layouts/platform.html"){
             "columnDefs": [
                 {
                     "render": function (data, type, row) {
-                        return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
-                                ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
-                                '<li><a href="${base}/platform/user/info/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
-                                '<li><a href="${base}/platform/user/info/edit/' + row.id + '" data-pjax>修改</a></li>' +
-                                '<li class="divider"></li>' +
-                                '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
-                                '</ul></div>';
+                        if(data==0){
+                            return '全职';
+                        }
+                        if(data==1){
+                            return '兼职';
+                        }
+                    },
+                    "targets": 5
+                },
+                {
+                    "render": function (data, type, row) {
+                        if(data==0){
+                            return '公司不提成';
+                        }
+                        else
+                        {
+                            return '公司提成' + data + '%';
+                        }
+                    },
+                    "targets": 6
+                },
+                {
+                    "render": function (data, type, row) {
+                        if(data==0){
+                            return '未上班';
+                        }
+                        if(data==1){
+                            return '空闲';
+                        }
+                        if(data==2){
+                            return '接单中';
+                        }
+                        if(data==3){
+                            return '忙碌中';
+                        }
+                    },
+                    "targets": 7
+                },
+                {
+                    "render": function (data, type, row) {
+                        var _html = '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">';
+                            _html += '  <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">';
+                            _html += '  <li><a href="${base}/platform/user/info/password/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">修改密码</a></li>';
+                            _html += "  <li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'解绑','确定解绑该司机吗？','"+encodeURI('{"userStatus":3}')+"')\">解绑</a></li>";
+                            if(row.workStatus == 0)
+                            {
+                                _html += "<li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'上班','确定让该司机上班吗？','"+encodeURI('{"workStatus":1}')+"')\">上班</a></li>";
+                            }
+                            else
+                            {
+                                _html += "<li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'下班','确定让该司机下班吗？','"+encodeURI('{"workStatus":0}')+"')\">下班</a></li>";
+                            }
+                            _html += '<li><a href="${base}/platform/user/info/edit/' + row.id + '" data-pjax>充值</a></li>';
+                            //_html += '<li><a href="${base}/platform/user/info/edit/' + row.id + '" data-pjax>消费历史</a></li>';
+                        _html += "      <li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'冻结','确定冻结该司机吗？','"+encodeURI('{"userStatus":2}')+"')\">冻结</a></li>";
+                        _html +=  '     <li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>';
+                        _html += '</ul></div>';
+                        return _html;
                     },
                     "targets": 12
                 }
@@ -121,6 +192,28 @@ layout("/layouts/platform.html"){
         });
         $("#searchBtn").on('click', function () {
             datatable.ajax.reload();
+        });
+    }
+    function work(id,title,content,dataStr) {
+        var _dataObj = eval('(' + decodeURI(dataStr) + ')');
+        var dialog = $("#wordDiv");
+        dialog.modal("show")
+        $("#wordDiv_title").text(title);
+        $("#wordDiv_content").html(content);
+        dialog.find("#work_sure").unbind("click");
+        dialog.find("#work_sure").bind("click", function (event) {
+            var btn = $(this);
+            btn.button("loading");
+            $.post("${base}/platform/user/info/work/" + id, _dataObj, function (data) {
+                if (data.code == 0) {
+                    datatable.ajax.reload(null,false);
+                } else {
+                    Toast.error(data.msg);
+                }
+                //重置按钮状态，关闭提示框
+                btn.button("reset");
+                dialog.modal("hide");
+            }, "json");
         });
     }
     function del(id) {
