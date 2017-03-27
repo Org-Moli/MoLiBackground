@@ -38,6 +38,22 @@ public class UserInfoController {
         return userInfoService.data(length, start, draw, order, columns, cnd, null);
     }
 
+    @At("/audit")
+    @Ok("beetl:/platform/user/info/audit.html")
+    @RequiresAuthentication
+    public void audit() {
+
+    }
+
+    @At
+    @Ok("json:full")
+    @RequiresAuthentication
+    public Object auditData(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
+        Cnd cnd = Cnd.NEW();
+        cnd.and("userStatus","=","0");
+        return userInfoService.data(length, start, draw, order, columns, cnd, null);
+    }
+
 	@At("")
 	@Ok("beetl:/platform/user/info/index.html")
 	@RequiresAuthentication
