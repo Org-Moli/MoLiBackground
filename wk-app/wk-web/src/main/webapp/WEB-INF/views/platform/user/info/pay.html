@@ -4,7 +4,7 @@
             <section class="panel panel-primary no-b">
                 <header class="panel-heading clearfix brtl brtr">
                     <div class="overflow-hidden">
-                        <a href="javascript:;" class="h4 show no-m pt5">修改密码</a>
+                        <a href="javascript:;" class="h4 show no-m pt5">充值</a>
                         <small>${obj.id}</small>
                     </div>
                 </header>
@@ -14,10 +14,10 @@
                     <table class="table table-bordered table-striped mg-t datatable">
                         <tbody>
                             <tr>
-                                <td>新密码：</td><td><input type="text" value="" name="password" id="password"/></td>
+                                <td>充值（元）：</td><td><input type="text" value="" name="balance" id="balance"/></td>
                             </tr>
                             <tr>
-                                <td>确定密码：</td><td><input type="text" value="" name="rePsd" id="rePsd"/></td>
+                                <td>备注：</td><td><input type="text" value="" name="remark" id="remark"/></td>
                             </tr>
                         </tbody>
                     </table>
@@ -37,24 +37,14 @@
 </div>
 <script>
     function submitForm() {
-        var _password = $("#password").val();
-        var _retPsd = $("#rePsd").val();
-        if(_password.trim().length == 0)
+        var _balance = $("#balance").val();
+        var _remark = $("#remark").val();
+        if(_balance.trim().length == 0)
         {
-            Toast.error("请输入密码");
+            Toast.error("请输入金额");
             return;
         }
-        if(_retPsd.trim().length == 0)
-        {
-            Toast.error("请输入确认密码");
-            return;
-        }
-        if(_password != _retPsd)
-        {
-            Toast.error("两次密码不一致");
-            return;
-        }
-        $.post("${base}/platform/user/info/retPsd", {id: '${obj.id}',password:$("#password").val()}, function (data) {
+        $.post("${base}/platform/user/info/balance", {id: '${obj.id}',balance:_balance,remark:_remark}, function (data) {
             if (data.code == 0) {
                 Toast.success(data.msg);
                 $("#cancleBtn").click();

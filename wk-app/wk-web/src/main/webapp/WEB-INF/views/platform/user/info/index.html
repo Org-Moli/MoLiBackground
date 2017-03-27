@@ -5,7 +5,7 @@ layout("/layouts/platform.html"){
     <header class="header navbar bg-white shadow">
         <div class="btn-group tool-button">
             <a id="add" class="btn btn-primary navbar-btn" href="${base}/platform/user/info/add" data-pjax><i class="ti-plus"></i> 添加新司机</a>
-            <button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 删除选中</button>
+            <!--<button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 删除选中</button>-->
         </div>
     </header>
     <div class=panel-body style="padding-top: 50px;">
@@ -166,6 +166,7 @@ layout("/layouts/platform.html"){
                     "render": function (data, type, row) {
                         var _html = '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">';
                             _html += '  <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">';
+                            _html += '  <li><a href="${base}/platform/user/info/edit/' + row.id + '">编辑</a></li>';
                             _html += '  <li><a href="${base}/platform/user/info/password/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">修改密码</a></li>';
                             _html += "  <li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'解绑','确定解绑该司机吗？','"+encodeURI('{"userStatus":3}')+"')\">解绑</a></li>";
                             if(row.workStatus == 0)
@@ -176,7 +177,7 @@ layout("/layouts/platform.html"){
                             {
                                 _html += "<li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'下班','确定让该司机下班吗？','"+encodeURI('{"workStatus":0}')+"')\">下班</a></li>";
                             }
-                            _html += '<li><a href="${base}/platform/user/info/edit/' + row.id + '" data-pjax>充值</a></li>';
+                            _html += '<li><a href="${base}/platform/user/info/pay/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">充值</a></li>';
                             //_html += '<li><a href="${base}/platform/user/info/edit/' + row.id + '" data-pjax>消费历史</a></li>';
                         _html += "      <li><a href=\"javascript:void(0);\" onclick=\"work("+row.id+",'冻结','确定冻结该司机吗？','"+encodeURI('{"userStatus":2}')+"')\">冻结</a></li>";
                         _html +=  '     <li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>';

@@ -75,16 +75,16 @@ public class UserInfoController {
     @At("/edit/?")
     @Ok("beetl:/platform/user/info/edit.html")
     @RequiresAuthentication
-    public Object edit(String id) {
+    public Object edit(Integer id) {
 		return userInfoService.fetch(id);
     }
 
     @At
     @Ok("json")
     @SLog(tag = "修改User_Info", msg = "ID:${args[0].id}")
+    @AdaptBy(type = WhaleAdaptor.class)
     public Object editDo(@Param("..") User_Info userInfo, HttpServletRequest req) {
 		try {
-
 			userInfoService.updateIgnoreNull(userInfo);
 			return Result.success("system.success");
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class UserInfoController {
 
     @At("/retPsd")
     @Ok("json")
-    @SLog(tag = "修改密码User_Info", msg = "ID:args[0]")
+    @SLog(tag = "修改密码User_Info", msg = "ID:${args[0]}")
     public Object retPsd(@Param("id") String id ,@Param("password")String password ,HttpServletRequest req) {
         try {
             if(StringUtils.isNotBlank(id))
@@ -159,7 +159,7 @@ public class UserInfoController {
 
     @At("/work/?")
     @Ok("json")
-    @SLog(tag = "操作司机", msg = "ID:args[0];userStatus:args[1]")
+    @SLog(tag = "操作司机", msg = "ID:${args[0]};userStatus:${args[1]};workStatus:${args[2]}")
     public Object work(Integer id ,@Param("userStatus")Integer userStatus ,@Param("workStatus")Integer workStatus, HttpServletRequest req) {
         try {
             if(id != null)
@@ -176,6 +176,46 @@ public class UserInfoController {
                 if(workStatus != null)
                 {
                     user_info.setWorkStatus(workStatus);
+                }
+                userInfoService.updateIgnoreNull(user_info);
+            }
+            else
+            {
+                return Result.error("system.error");
+            }
+            return Result.success("system.success");
+        } catch (Exception e) {
+            return Result.error("system.error");
+        }
+    }
+
+    @At("/pay/?")
+    @Ok("beetl:/platform/user/info/pay.html")
+    @RequiresAuthentication
+    public Object pay(Integer id) {
+        if (id != null) {
+            return userInfoService.findById(id);
+        }
+        return null;
+    }
+
+    @At("/balance")
+    @Ok("json")
+    @SLog(tag = "充值User_Info", msg = "ID:args[0],金额:${args[1]}")
+    public Object balance(@Param("id") String id ,@Param("balance")Double balance ,@Param("remark") String remark,HttpServletRequest req) {
+        try {
+            if(StringUtils.isNotBlank(id))
+            {
+                User_Info user_info = userInfoService.fetch(Integer.valueOf(id));
+                if(user_info == null)
+                {
+                    return Result.error("system.error");
+                }
+                Double oldBalance = user_info.getBalance();
+                user_info.setBalance(oldBalance + balance);
+                if(StringUtils.isNotBlank(remark))
+                {
+                    user_info.setRemark(remark);
                 }
                 userInfoService.updateIgnoreNull(user_info);
             }
