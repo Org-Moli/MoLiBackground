@@ -115,4 +115,11 @@ public class UserInfoController {
 		return null;
     }
 
+    @At("/free/?")
+    @Ok("json:full")
+    @RequiresAuthentication
+    public Object data(Integer sysUnitId) {
+        return userInfoService.listUserInfoBySysUnitId(sysUnitId);
+    }
+
 }
