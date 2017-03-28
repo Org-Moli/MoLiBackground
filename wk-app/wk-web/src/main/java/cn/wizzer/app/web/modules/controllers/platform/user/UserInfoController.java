@@ -251,4 +251,11 @@ public class UserInfoController {
     public Object data(Integer sysUnitId) {
         return userInfoService.listUserInfoBySysUnitId(sysUnitId);
     }
+
+    @At("/test")
+    @Ok("beetl:/platform/user/info/test.html")
+    @RequiresAuthentication
+    public Object test() {
+        return null;
+    }
 }
