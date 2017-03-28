@@ -80,7 +80,7 @@ public class User_Info implements Serializable{
     private Double tcRatio;
 
     @Column
-    private int djCnt;
+    private Integer djCnt;
 
     @Column
     private String nativePlace;
@@ -96,10 +96,10 @@ public class User_Info implements Serializable{
 
     @Column
     @Comment("状态")
-    private int workStatus;
+    private Integer workStatus;
 
     @Column
-    private int userStatus;
+    private Integer userStatus;
 
     @Column
     private Date applyTime;
@@ -135,333 +135,267 @@ public class User_Info implements Serializable{
     @Column
     private Integer sysUnitId;
 
-    public Integer getId()
-    {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id)
-    {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getNickName()
-    {
+    public String getNickName() {
         return nickName;
     }
 
-    public void setNickName(String nickName)
-    {
+    public void setNickName(String nickName) {
         this.nickName = nickName;
     }
 
-    public String getUserName()
-    {
+    public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName)
-    {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    public String getCardNo()
-    {
+    public String getCardNo() {
         return cardNo;
     }
 
-    public void setCardNo(String cardNo)
-    {
+    public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
 
-    public String getCardImg()
-    {
+    public String getCardImg() {
         return cardImg;
     }
 
-    public void setCardImg(String cardImg)
-    {
+    public void setCardImg(String cardImg) {
         this.cardImg = cardImg;
     }
 
-    public int getSex()
-    {
+    public int getSex() {
         return sex;
     }
 
-    public void setSex(int sex)
-    {
+    public void setSex(int sex) {
         this.sex = sex;
     }
 
-    public Date getPapersTime()
-    {
+    public Date getPapersTime() {
         return papersTime;
     }
 
-    public void setPapersTime(Date papersTime)
-    {
+    public void setPapersTime(Date papersTime) {
         this.papersTime = papersTime;
     }
 
-    public String getJobNumber()
-    {
+    public String getJobNumber() {
         return jobNumber;
     }
 
-    public void setJobNumber(String jobNumber)
-    {
+    public void setJobNumber(String jobNumber) {
         this.jobNumber = jobNumber;
     }
 
-    public String getMobile()
-    {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(String mobile)
-    {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password)
-    {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getHeadImg()
-    {
+    public String getHeadImg() {
         return headImg;
     }
 
-    public void setHeadImg(String headImg)
-    {
+    public void setHeadImg(String headImg) {
         this.headImg = headImg;
     }
 
-    public String getPapersImg()
-    {
+    public String getPapersImg() {
         return papersImg;
     }
 
-    public void setPapersImg(String papersImg)
-    {
+    public void setPapersImg(String papersImg) {
         this.papersImg = papersImg;
     }
 
-    public String getPersonalImg()
-    {
+    public String getPersonalImg() {
         return personalImg;
     }
 
-    public void setPersonalImg(String personalImg)
-    {
+    public void setPersonalImg(String personalImg) {
         this.personalImg = personalImg;
     }
 
-    public Double getBalance()
-    {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance)
-    {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public int getEmptypeType()
-    {
+    public int getEmptypeType() {
         return emptypeType;
     }
 
-    public void setEmptypeType(int emptypeType)
-    {
+    public void setEmptypeType(int emptypeType) {
         this.emptypeType = emptypeType;
     }
 
-    public Double getTcRatio()
-    {
+    public Double getTcRatio() {
         return tcRatio;
     }
 
-    public void setTcRatio(Double tcRatio)
-    {
+    public void setTcRatio(Double tcRatio) {
         this.tcRatio = tcRatio;
     }
 
-    public int getDjCnt()
-    {
+    public Integer getDjCnt() {
         return djCnt;
     }
 
-    public void setDjCnt(int djCnt)
-    {
+    public void setDjCnt(Integer djCnt) {
         this.djCnt = djCnt;
     }
 
-    public String getNativePlace()
-    {
+    public String getNativePlace() {
         return nativePlace;
     }
 
-    public void setNativePlace(String nativePlace)
-    {
+    public void setNativePlace(String nativePlace) {
         this.nativePlace = nativePlace;
     }
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address)
-    {
+    public void setAddress(String address) {
         this.address = address;
     }
 
-    public String getEmergencyContact()
-    {
+    public String getEmergencyContact() {
         return emergencyContact;
     }
 
-    public void setEmergencyContact(String emergencyContact)
-    {
+    public void setEmergencyContact(String emergencyContact) {
         this.emergencyContact = emergencyContact;
     }
 
-    public String getEmergencyContactTel()
-    {
+    public String getEmergencyContactTel() {
         return emergencyContactTel;
     }
 
-    public void setEmergencyContactTel(String emergencyContactTel)
-    {
+    public void setEmergencyContactTel(String emergencyContactTel) {
         this.emergencyContactTel = emergencyContactTel;
     }
 
-    public int getWorkStatus()
-    {
+    public Integer getWorkStatus() {
         return workStatus;
     }
 
-    public void setWorkStatus(int workStatus)
-    {
+    public void setWorkStatus(Integer workStatus) {
         this.workStatus = workStatus;
     }
 
-    public int getUserStatus()
-    {
+    public Integer getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(int userStatus)
-    {
+    public void setUserStatus(Integer userStatus) {
         this.userStatus = userStatus;
     }
 
-    public Date getApplyTime()
-    {
+    public Date getApplyTime() {
         return applyTime;
     }
 
-    public void setApplyTime(Date applyTime)
-    {
+    public void setApplyTime(Date applyTime) {
         this.applyTime = applyTime;
     }
 
-    public String getAppVersion()
-    {
+    public String getAppVersion() {
         return appVersion;
     }
 
-    public void setAppVersion(String appVersion)
-    {
+    public void setAppVersion(String appVersion) {
         this.appVersion = appVersion;
     }
 
-    public Date getHireDate()
-    {
+    public Date getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate)
-    {
+    public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
 
-    public String getCompany()
-    {
+    public String getCompany() {
         return company;
     }
 
-    public void setCompany(String company)
-    {
+    public void setCompany(String company) {
         this.company = company;
     }
 
-    public String getLocation()
-    {
+    public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location)
-    {
+    public void setLocation(String location) {
         this.location = location;
     }
 
-    public String getLongitude()
-    {
+    public String getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude)
-    {
+    public void setLongitude(String longitude) {
         this.longitude = longitude;
     }
 
-    public String getLatitude()
-    {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude)
-    {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 
-    public Date getUploadTime()
-    {
+    public Date getUploadTime() {
         return uploadTime;
     }
 
-    public void setUploadTime(Date uploadTime)
-    {
+    public void setUploadTime(Date uploadTime) {
         this.uploadTime = uploadTime;
     }
 
-    public String getRemark()
-    {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(String remark)
-    {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 
-    public Integer getSysUnitId()
-    {
+    public Integer getSysUnitId() {
         return sysUnitId;
     }
 
-    public void setSysUnitId(Integer sysUnitId)
-    {
+    public void setSysUnitId(Integer sysUnitId) {
         this.sysUnitId = sysUnitId;
     }
 }

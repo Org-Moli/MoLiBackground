@@ -1,0 +1,56 @@
+<div class="modal-body no-p">
+    <div class="row">
+        <div class="col-xs-12">
+            <section class="panel panel-primary no-b">
+                <header class="panel-heading clearfix brtl brtr">
+                    <div class="overflow-hidden">
+                        <a href="javascript:;" class="h4 show no-m pt5">充值</a>
+                        <small>${obj.id}</small>
+                    </div>
+                </header>
+                <form id="addForm" role="form" class="form-horizontal parsley-form" data-parsley-validate
+                      action="${base}/platform/user/info/passwordDo" method="post">
+                <div class="list-group">
+                    <table class="table table-bordered table-striped mg-t datatable">
+                        <tbody>
+                            <tr>
+                                <td>充值（元）：</td><td><input type="text" value="" name="balance" id="balance"/></td>
+                            </tr>
+                            <tr>
+                                <td>备注：</td><td><input type="text" value="" name="remark" id="remark"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+<div class="modal-footer " style="border: none;">
+    <div class="col-lg-6">
+        <button type="button" class="btn btn-primary btn-block" onclick="submitForm();">确定</button>
+    </div>
+    <div class="col-lg-6">
+        <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" id="cancleBtn">取消</button>
+    </div>
+</div>
+<script>
+    function submitForm() {
+        var _balance = $("#balance").val();
+        var _remark = $("#remark").val();
+        if(_balance.trim().length == 0)
+        {
+            Toast.error("请输入金额");
+            return;
+        }
+        $.post("${base}/platform/user/info/balance", {id: '${obj.id}',balance:_balance,remark:_remark}, function (data) {
+            if (data.code == 0) {
+                Toast.success(data.msg);
+                $("#cancleBtn").click();
+            } else {
+                Toast.error(data.msg);
+            }
+        }, "json");
+    }
+</script>

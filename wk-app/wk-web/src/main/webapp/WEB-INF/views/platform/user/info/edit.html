@@ -14,13 +14,109 @@ layout("/layouts/platform.html"){
                   action="${base}/platform/user/info/editDo" method="post">
                 <input name="id" type="hidden" value="${obj.id}">
                 <div class="row mb10">
-                    <div class="col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="headImg" class="col-sm-2 control-label">司机头像</label>
+                            <div class="col-sm-8">
+                                <div id="queue_headImg"></div>
+                                <div>
+                                    <input id="file_upload_headImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_headImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.headImg)){%>
+                                    <img src='${obj.headImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#headImg').val('');$('#img_headImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="headImg" name="headImg" value="${obj.headImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="papersImg" class="col-sm-2 control-label">驾驶证照片</label>
+                            <div class="col-sm-8">
+                                <div id="queue_papersImg"></div>
+                                <div>
+                                    <input id="file_upload_papersImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_papersImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.papersImg)){%>
+                                    <img src='${obj.papersImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#papersImg').val('');$('#img_papersImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="papersImg" name="papersImg" value="${obj.papersImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="personalImg" class="col-sm-2 control-label">司机全身照</label>
+                            <div class="col-sm-8">
+                                <div id="queue_personalImg"></div>
+                                <div>
+                                    <input id="file_upload_personalImg" name="file_upload" type="file" multiple="false">
+                                </div>
+                                <div id="img_personalImg" style="padding: 5px;">
+                                    <%if(!isEmpty(obj.personalImg)){%>
+                                    <img src='${obj.personalImg!}' style='width:150px;'>
+                                    <i class="fa fa-close" onclick="$('#personalImg').val('');$('#img_personalImg').html('');"></i>
+                                    <%}%>
+                                </div>
+                                <input type="hidden" id="personalImg" name="personalImg" value="${obj.personalImg!}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb10">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="jobNumber" class="col-sm-2 control-label">工号</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="jobNumber" class="form-control" value="${obj.jobNumber}" name="jobNumber"  placeholder="系统自动生成" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nickName" class="col-sm-2 control-label">昵称 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="nickName" class="form-control" name="nickName" value="${obj.nickName}" data-parsley-required="true" placeholder="填写司机昵称，用于APP显示">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="userName" class="col-sm-2 control-label">真实姓名 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="userName" class="form-control" name="userName" value="${obj.userName}" data-parsley-required="true" placeholder="填写司机真实姓名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">身份证号 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input type="text" id="cardNo" class="form-control" name="cardNo" value="${obj.cardNo}" data-parsley-required="true" onblur="chooseSex(this);" placeholder="填写司机身份证号">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8">
+                                <input name="sex" type="radio" value="1"  <%if(obj.sex==1){%> checked="checked"<%}%>/> 男 &nbsp;&nbsp;&nbsp;&nbsp;
+                                <input name="sex" type="radio" value="0" <%if(obj.sex==0){%> checked="checked"<%}%>/> 女
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="mobile" class="col-sm-2 control-label">手机号</label>
                             <div class="col-sm-8">
                                 <input type="text" id="mobile" class="form-control" name="mobile" data-parsley-required="true"
                                        placeholder="手机号" value="${obj.mobile}" >
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="at" class="col-sm-2 control-label">领证时间 <span style="color: #ff0000">*</span></label>
+                            <div class="col-sm-8 input-group date form_datetime " style="padding-left: 16px;padding-right: 16px;"  data-date-format="yyyy-MM-dd"data-date="1979-09-16" data-link-field="at">
+                                <input type="text" size="16" readonly class="form-control" id="papersTime" name="papersTime" value="${@date.getDate()}" data-parsley-required="true">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                            </div>
+                            <input type="hidden" id="at" name="at" value="${@date.getDate()}" />
                         </div>
                         <div class="form-group">
                             <label for="balance" class="col-sm-2 control-label">余额</label>
@@ -30,52 +126,69 @@ layout("/layouts/platform.html"){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="emptypeType" class="col-sm-2 control-label">员工类型</label>
+                            <label for="emptypeType" class="col-sm-2 control-label">员工类型 <span style="color: #ff0000">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" id="emptypeType" class="form-control" name="emptypeType" data-parsley-required="true"
-                                       placeholder="员工类型" value="${obj.emptypeType}" >
+                                <select class="form-control" id="emptypeType" name="emptypeType">
+                                    <option value="0" <%if(obj.emptypeType==0){%>selected<%}%>>全职</option>
+                                    <option value="1" <%if(obj.emptypeType==1){%>selected<%}%>>兼职</option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tcRatio" class="col-sm-2 control-label">提成方式</label>
+                            <label for="emptypeType" class="col-sm-2 control-label">提成方式 <span style="color: #ff0000">*</span></label>
                             <div class="col-sm-8">
-                                <input type="text" id="tcRatio" class="form-control" name="tcRatio" data-parsley-required="true"
-                                       placeholder="提成方式" value="${obj.tcRatio}" >
+                                <select class="form-control" id="tcRatio" name="tcRatio">
+                                    <option value="0" <%if(obj.tcRatio==0){%>selected<%}%>>全职不提成</option>
+                                    <option value="10" <%if(obj.tcRatio==10){%>selected<%}%>>提成10%</option>
+                                    <option value="15" <%if(obj.tcRatio==15){%>selected<%}%>>提成15%</option>
+                                    <option value="20" <%if(obj.tcRatio==20){%>selected<%}%>>提成20%</option>
+                                    <option value="25" <%if(obj.tcRatio==25){%>selected<%}%>>提成25%</option>
+                                    <option value="30" <%if(obj.tcRatio==30){%>selected<%}%>>提成30%</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label for="djCnt" class="col-sm-2 control-label">代驾次数</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="djCnt" class="form-control" name="djCnt" value="${obj.djCnt}" placeholder="代驾次数">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="workStatus" class="col-sm-2 control-label">介绍人</label>
+                            <div class="col-sm-8">
+                            <input type="text" id="workStatus" class="form-control" name="workStatus" placeholder="状态">
+                            </div>
+                        </div>-->
+                        <div class="form-group">
+                            <label for="nativePlace" class="col-sm-2 control-label">籍贯</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="nativePlace" class="form-control" value="${obj.nativePlace}" name="nativePlace" placeholder="籍贯">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="workStatus" class="col-sm-2 control-label">状态</label>
+                            <label for="address" class="col-sm-2 control-label">家庭住址</label>
                             <div class="col-sm-8">
-                                <input type="text" id="workStatus" class="form-control" name="workStatus" data-parsley-required="true"
-                                       placeholder="状态" value="${obj.workStatus}" >
+                                <input type="text" id="address" class="form-control" name="address" value="${obj.address}" placeholder="入职时间">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="appVersion" class="col-sm-2 control-label">APP版本</label>
+                            <label for="emergencyContact" class="col-sm-2 control-label">紧急联系人</label>
                             <div class="col-sm-8">
-                                <input type="text" id="appVersion" class="form-control" name="appVersion" data-parsley-required="true"
-                                       placeholder="APP版本" value="${obj.appVersion}" >
+                                <input type="text" id="emergencyContact" class="form-control" value="${obj.emergencyContact}" name="emergencyContact" placeholder="紧急联系人">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="hireDate" class="col-sm-2 control-label">入职时间</label>
+                            <label for="emergencyContactTel" class="col-sm-2 control-label">紧急联系人电话</label>
                             <div class="col-sm-8">
-                                <input type="text" id="hireDate" class="form-control" name="hireDate" data-parsley-required="true"
-                                       placeholder="入职时间" value="${obj.hireDate}" >
+                                <input type="text" id="emergencyContactTel" class="form-control" value="${obj.emergencyContactTel}" name="emergencyContactTel" placeholder="紧急联系人电话">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="company" class="col-sm-2 control-label">所属公司</label>
+                            <label for="emergencyContactTel" class="col-sm-2 control-label">备注</label>
                             <div class="col-sm-8">
-                                <input type="text" id="company" class="form-control" name="company" data-parsley-required="true"
-                                       placeholder="所属公司" value="${obj.company}" >
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="uploadTime" class="col-sm-2 control-label">上传时间</label>
-                            <div class="col-sm-8">
-                                <input type="text" id="uploadTime" class="form-control" name="uploadTime" data-parsley-required="true"
-                                       placeholder="上传时间" value="${obj.uploadTime}" >
+                                <input type="text" id="remark" class="form-control" name="remark" value="${obj.remark}" placeholder="备注">
                             </div>
                         </div>
                     </div>
@@ -114,7 +227,172 @@ layout("/layouts/platform.html"){
                 form.find("button:submit").button("reset");
             }
         });
+
+        $('.form_datetime').datetimepicker({
+            language:  'zh-CN',
+            format:'yyyy-mm-dd',
+            todayBtn:  1,
+            minView:2,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: true
+        });
+        $('#file_upload_headImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机头像',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_headImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img_headImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#headImg").val(data.data);
+                } else {
+                    clearHeadImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearHeadImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearHeadImgFile();
+            },
+            'onCancel': function () {
+                clearHeadImgFile();
+            }
+        });
+        $('#file_upload_papersImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机驾驶证照片',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_papersImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img_papersImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#papersImg").val(data.data);
+                } else {
+                    clearPapersImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearPapersImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearPapersImgFile();
+            },
+            'onCancel': function () {
+                clearPapersImgFile();
+            }
+        });
+        $('#file_upload_personalImg').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'buttonText': '上传司机全身照',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_personalImg',
+            'uploadScript': '${base}/open/file/upload/image',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    $("#img_personalImg").html("<img src='" + data.data + "' style='width:150px;'>");
+                    $("#personalImg").val(data.data);
+                } else {
+                    clearPersonalImgFile();
+                    Toast.error(data.msg);
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearPersonalImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearPersonalImgFile();
+            },
+            'onCancel': function () {
+                clearPersonalImgFile();
+            }
+        });
     });
+
+    function chooseSex(obj)
+    {
+        var cardNo_val = $(obj).val().trim();
+        if(cardNo_val.length > 0)
+        {
+            if(cardNo_val.length == 15)
+            {
+                var _sexIndex = cardNo_val.substr(14,1);
+                if(!isNaN(_sexIndex))
+                {
+                    if(_sexIndex %2 == 0)
+                    {
+                        $("input[type='radio'][name='sex'][value='0']").prop("checked","ckecked");
+                    }
+                    else
+                    {
+                        $("input[type='radio'][name='sex'][value='1']").prop("checked","ckecked");
+                    }
+                }
+            }
+            else if(cardNo_val.length == 18)
+            {
+                var _sexIndex = cardNo_val.substr(16,1);
+                if(!isNaN(_sexIndex))
+                {
+                    if(_sexIndex %2 == 0)
+                    {
+                        $("input[type='radio'][name='sex'][value='0']").prop("checked","ckecked");
+                    }
+                    else
+                    {
+                        $("input[type='radio'][name='sex'][value='1']").prop("checked","ckecked");
+                    }
+                }
+            }
+        }
+    }
+
+    function clearHeadImgFile() {
+        $("#img_headImg").html("");
+        $("#queue_headImg").html("");
+        $("#headImg").val("");
+    }
+    function clearPapersImgFile() {
+        $("#img_papersImg").html("");
+        $("#queue_papersImg").html("");
+        $("#papersImg").val("");
+    }
+    function clearPersonalImgFile() {
+        $("#img_personalImg").html("");
+        $("#queue_personalImg").html("");
+        $("#personalImg").val("");
+    }
 </script>
 
 

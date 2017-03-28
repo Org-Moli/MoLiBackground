@@ -3,11 +3,8 @@ package cn.wizzer.app.user.modules.services.impl;
 import cn.wizzer.app.user.modules.models.User_Info;
 import cn.wizzer.app.user.modules.services.UserInfoService;
 import cn.wizzer.framework.base.service.BaseServiceImpl;
-import org.nutz.dao.Cnd;
 import org.nutz.dao.Dao;
 import org.nutz.ioc.loader.annotation.IocBean;
-
-import java.util.List;
 
 /**
  * <p>名称</p>
@@ -32,8 +29,13 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
     }
 
     @Override
-    public List<User_Info> listUserInfoBySysUnitId(Integer sysUnitId)
-    {
-        return this.query(Cnd.where("sysUnitId", "=", sysUnitId).and("workStatus","=",1).and("userStatus","=",1));
+    public User_Info findById(Integer id) {
+        return this.fetch(id);
+    }
+
+    @Override
+    public void deleteUserById(Integer id) {
+        User_Info user_info = this.fetch(id);
+        dao().delete(user_info);
     }
 }
