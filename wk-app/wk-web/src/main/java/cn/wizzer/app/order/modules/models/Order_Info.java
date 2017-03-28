@@ -28,7 +28,7 @@ public class Order_Info {
     @ColDefine(notNull=true,type = ColType.VARCHAR, width = 100)
     private String dj_address;
 
-    @Column("papersTime")
+    @Column
     @Comment("代驾预约时间")
     @ColDefine(type = ColType.DATETIME)
     private Date dj_apment_time;
@@ -95,7 +95,7 @@ public class Order_Info {
     @Comment("销单原因")
     private String cancel_reamk;
 
-    @Column("papersTime")
+    @Column
     @Comment("订单创建时间")
     @ColDefine(type = ColType.DATETIME)
     private Date order_create_time;
@@ -108,7 +108,7 @@ public class Order_Info {
     @Comment("订单创建人name")
     private String order_create_user_name;
 
-    @Column("papersTime")
+    @Column
     @Comment("订单最后修改时间")
     @ColDefine(type = ColType.DATETIME)
     private Date update_time;

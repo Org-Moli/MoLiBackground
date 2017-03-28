@@ -28,11 +28,11 @@ public class OrderInfoController {
 	@Inject
 	private OrderInfoService orderInfoService;
 
-	@At("")
+	@At("/index")
 	@Ok("beetl:/platform/order/index.html")
 	@RequiresAuthentication
 	public void index() {
-
+           
 	}
 
 	@At

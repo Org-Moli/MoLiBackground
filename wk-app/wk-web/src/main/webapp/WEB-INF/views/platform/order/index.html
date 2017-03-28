@@ -4,7 +4,7 @@ layout("/layouts/platform.html"){
 <section class="content-wrap bg-white">
     <header class="header navbar bg-white shadow">
         <div class="btn-group tool-button">
-            <a id="add" class="btn btn-primary navbar-btn" href="${base}/platform/dic/info/add" data-pjax><i class="ti-plus"></i> 新建Order_Info</a>
+            <a id="add" class="btn btn-primary navbar-btn" href="${base}/platform/order/add" data-pjax><i class="ti-plus"></i>添加新订单</a>
             <button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 删除选中</button>
         </div>
     </header>
@@ -91,7 +91,7 @@ layout("/layouts/platform.html"){
                 sublime.closeLoadingbar($(".main-content"));
             },
             "ajax": {
-                "url": "${base}/platform/dic/info/data",
+                "url": "${base}/platform/order/data",
                 "type": "post",
                 "data": function (d) {
                     //d.nutz = $('#nutz').val();
@@ -128,8 +128,8 @@ layout("/layouts/platform.html"){
                     "render": function (data, type, row) {
                         return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
                                 ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
-                                '<li><a href="${base}/platform/dic/info/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
-                                '<li><a href="${base}/platform/dic/info/edit/' + row.id + '" data-pjax>修改</a></li>' +
+                                '<li><a href="${base}/platform/order/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
+                                '<li><a href="${base}/platform/order/edit/' + row.id + '" data-pjax>修改</a></li>' +
                                 '<li class="divider"></li>' +
                                 '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
                                 '</ul></div>';
@@ -152,7 +152,7 @@ layout("/layouts/platform.html"){
         dialog.find("#okDel").bind("click", function (event) {
             var btn = $(this);
             btn.button("loading");
-            $.post("${base}/platform/dic/info/delete/" + id, {}, function (data) {
+            $.post("${base}/platform/order/delete/" + id, {}, function (data) {
                 if (data.code == 0) {
                     datatable.ajax.reload(null,false);
                 } else {
@@ -177,7 +177,7 @@ layout("/layouts/platform.html"){
             dialog.find("#okDel").bind("click", function (event) {
                 var btn = $(this);
                 btn.button("loading");
-                $.post("${base}/platform/dic/info/delete", {ids: ids.toString()}, function (data) {
+                $.post("${base}/platform/order/delete", {ids: ids.toString()}, function (data) {
                     if (data.code == 0) {
                         datatable.ajax.reload(null,false);
                     } else {
