@@ -244,4 +244,11 @@ public class UserInfoController {
             return Result.error("system.error");
         }
     }
+
+    @At("/free/?")
+    @Ok("json:full")
+    @RequiresAuthentication
+    public Object data(Integer sysUnitId) {
+        return userInfoService.listUserInfoBySysUnitId(sysUnitId);
+    }
 }
