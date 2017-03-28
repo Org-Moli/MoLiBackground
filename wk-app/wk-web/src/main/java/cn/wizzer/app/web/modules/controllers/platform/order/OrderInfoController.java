@@ -22,7 +22,7 @@ import java.util.List;
 
 
 @IocBean
-@At("/platform/order/info")
+@At("/platform/order")
 public class OrderInfoController {
 	private static final Log log = Logs.get();
 	@Inject
