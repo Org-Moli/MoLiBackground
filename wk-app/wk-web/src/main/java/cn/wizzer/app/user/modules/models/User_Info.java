@@ -113,17 +113,13 @@ public class User_Info implements Serializable{
     private Date hireDate;
 
     @Column
-    @Comment("所属公司")
-    private String company;
-
-    @Column
     private String location;
 
     @Column
-    private String longitude;
+    private Double lon;
 
     @Column
-    private String latitude;
+    private Double lat;
 
     @Column
     @Comment("上传时间")
@@ -134,6 +130,9 @@ public class User_Info implements Serializable{
 
     @Column
     private Integer sysUnitId;
+
+    @Column("geo_code")
+    private String geoCode;
 
     public Integer getId() {
         return id;
@@ -343,36 +342,12 @@ public class User_Info implements Serializable{
         this.hireDate = hireDate;
     }
 
-    public String getCompany() {
-        return company;
-    }
-
-    public void setCompany(String company) {
-        this.company = company;
-    }
-
     public String getLocation() {
         return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
     }
 
     public Date getUploadTime() {
@@ -397,5 +372,35 @@ public class User_Info implements Serializable{
 
     public void setSysUnitId(Integer sysUnitId) {
         this.sysUnitId = sysUnitId;
+    }
+
+    public Double getLat()
+    {
+        return lat;
+    }
+
+    public void setLat(Double lat)
+    {
+        this.lat = lat;
+    }
+
+    public Double getLon()
+    {
+        return lon;
+    }
+
+    public void setLon(Double lon)
+    {
+        this.lon = lon;
+    }
+
+    public String getGeoCode()
+    {
+        return geoCode;
+    }
+
+    public void setGeoCode(String geoCode)
+    {
+        this.geoCode = geoCode;
     }
 }

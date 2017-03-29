@@ -77,6 +77,7 @@ public class UserInfoController {
             userInfo.setUploadTime(new Date());
             userInfo.setBalance(0.00);
             userInfo.setUserStatus(1);
+            userInfo.setWorkStatus(0);
 			userInfoService.insert(userInfo);
             String jobNumber = "DR" + String.format("%6d", userInfo.getId()).replace(" ", "0");
             userInfo.setJobNumber(jobNumber);
@@ -252,10 +253,31 @@ public class UserInfoController {
         return userInfoService.listUserInfoBySysUnitId(sysUnitId);
     }
 
-    @At("/test")
-    @Ok("beetl:/platform/user/info/test.html")
+    @At("/free")
+    @Ok("json:full")
     @RequiresAuthentication
-    public Object test() {
-        return null;
+    public Object freeData(Integer sysUnitId, Double lon, Double lat, Double radius) {
+        if(radius != null)
+        {
+            if(sysUnitId != null)
+            {
+                return userInfoService.listUserByUnitIdAndLonAndLatAndRadius(sysUnitId,lon,lat,radius);
+            }
+            else
+            {
+                return userInfoService.listUserByLonAndLatAndRadius(lon, lat, radius);
+            }
+        }
+        else
+        {
+            if(sysUnitId != null)
+            {
+                return userInfoService.listUserByUnitIdAndLonAndLat(sysUnitId,lon,lat);
+            }
+            else
+            {
+                return userInfoService.listUserByLonAndLat(lon,lat);
+            }
+        }
     }
 }
