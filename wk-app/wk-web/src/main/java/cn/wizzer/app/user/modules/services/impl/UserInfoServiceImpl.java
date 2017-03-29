@@ -21,6 +21,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.*;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * <p>名称</p>
  * <p/>
@@ -170,8 +172,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
                     * DistanceUtils.DEG_TO_KM;
             u.put("distance",distance);
          });
-        userList.stream().filter(m -> (Double)m.get("distance") <= radius);
-        return userList;
+        return userList.stream().filter(m -> (Double)m.get("distance") <= radius).collect(toList());
     }
 
     /***
@@ -239,8 +240,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
                     * DistanceUtils.DEG_TO_KM;
             u.put("distance",distance);
         });
-        userList.stream().filter(m -> (Double)m.get("distance") <= radius);
-        return userList;
+        return userList.stream().filter(m -> (Double)m.get("distance") <= radius).collect(toList());
     }
 
     private int getPrecision(double radius)
