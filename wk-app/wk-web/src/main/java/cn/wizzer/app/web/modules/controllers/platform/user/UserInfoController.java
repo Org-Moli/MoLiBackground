@@ -45,6 +45,13 @@ public class UserInfoController {
 
     }
 
+    @At("/audit/?")
+    @Ok("beetl:/platform/user/info/auditInfo.html")
+    @RequiresAuthentication
+    public Object auditById(Integer id) {
+        return userInfoService.fetch(id);
+    }
+
     @At
     @Ok("json:full")
     @RequiresAuthentication
