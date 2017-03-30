@@ -28,6 +28,12 @@ public class Order_Info {
     @ColDefine(notNull=true,type = ColType.VARCHAR, width = 100)
     private String dj_address;
 
+    //代驾地点经度
+    //private String dj_address_lng;
+    
+    //代驾地点纬度
+    //private String dj_address_lat;
+    
     @Column
     @Comment("代驾预约时间")
     @ColDefine(type = ColType.DATETIME)

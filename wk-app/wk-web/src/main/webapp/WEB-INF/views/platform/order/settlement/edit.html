@@ -1,0 +1,219 @@
+<%
+layout("/layouts/platform.html"){
+%>
+<header class="header navbar bg-white shadow">
+    <div class="btn-group tool-button">
+        <a class="btn btn-primary navbar-btn" href="${base}/platform/settlement/order" id="goback" data-pjax><i class="ti-angle-left"></i> 返回</a>
+    </div>
+</header>
+
+<div class="content-wrap">
+    <div class="wrapper" style="min-height:500px;">
+        <section class="panel panel-form">
+            <form id="editForm" role="form" class="form-horizontal parsley-form" data-parsley-validate
+                  action="${base}/platform/settlement/order/editDo" method="post">
+                <input name="id" type="hidden" value="${obj.id}">
+                <div class="row mb10">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="order_type" class="col-sm-2 control-label">订单类型</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="order_type" class="form-control" name="order_type" data-parsley-required="true"
+                                       placeholder="订单类型" value="${obj.order_type}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="start_time" class="col-sm-2 control-label">出发时间</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="start_time" class="form-control" name="start_time" data-parsley-required="true"
+                                       placeholder="出发时间" value="${obj.start_time}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_address" class="col-sm-2 control-label">预约地—-代驾地点</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_address" class="form-control" name="dj_address" data-parsley-required="true"
+                                       placeholder="预约地—-代驾地点" value="${obj.dj_address}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Settlement_end_time" class="col-sm-2 control-label">结算时间</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="Settlement_end_time" class="form-control" name="Settlement_end_time" data-parsley-required="true"
+                                       placeholder="结算时间" value="${obj.Settlement_end_time}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_end_address" class="col-sm-2 control-label">目的地</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_end_address" class="form-control" name="dj_end_address" data-parsley-required="true"
+                                       placeholder="目的地" value="${obj.dj_end_address}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mileage" class="col-sm-2 control-label">里程</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="mileage" class="form-control" name="mileage" data-parsley-required="true"
+                                       placeholder="里程" value="${obj.mileage}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="waited_time" class="col-sm-2 control-label">等候时间_分钟</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="waited_time" class="form-control" name="waited_time" data-parsley-required="true"
+                                       placeholder="等候时间_分钟" value="${obj.waited_time}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="re_amount" class="col-sm-2 control-label">应收金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="re_amount" class="form-control" name="re_amount" data-parsley-required="true"
+                                       placeholder="应收金额" value="${obj.re_amount}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ac_amount" class="col-sm-2 control-label">实收金额</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="ac_amount" class="form-control" name="ac_amount" data-parsley-required="true"
+                                       placeholder="实收金额" value="${obj.ac_amount}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile" class="col-sm-2 control-label">客户手机</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="mobile" class="form-control" name="mobile" data-parsley-required="true"
+                                       placeholder="客户手机" value="${obj.mobile}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">客户姓名</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="name" class="form-control" name="name" data-parsley-required="true"
+                                       placeholder="客户姓名" value="${obj.name}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_sj_mobile" class="col-sm-2 control-label">接单司机手机</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_sj_mobile" class="form-control" name="dj_sj_mobile" data-parsley-required="true"
+                                       placeholder="接单司机手机" value="${obj.dj_sj_mobile}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_sj_name" class="col-sm-2 control-label">接单司机名</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_sj_name" class="form-control" name="dj_sj_name" data-parsley-required="true"
+                                       placeholder="接单司机名" value="${obj.dj_sj_name}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_sj_id" class="col-sm-2 control-label">接单司机ID</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_sj_id" class="form-control" name="dj_sj_id" data-parsley-required="true"
+                                       placeholder="接单司机ID" value="${obj.dj_sj_id}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="dj_plate_number" class="col-sm-2 control-label">车牌号</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="dj_plate_number" class="form-control" name="dj_plate_number" data-parsley-required="true"
+                                       placeholder="车牌号" value="${obj.dj_plate_number}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="remark" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="remark" class="form-control" name="remark" data-parsley-required="true"
+                                       placeholder="备注" value="${obj.remark}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="is_check" class="col-sm-2 control-label">是否已报单</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="is_check" class="form-control" name="is_check" data-parsley-required="true"
+                                       placeholder="是否已报单" value="${obj.is_check}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="order_create_time" class="col-sm-2 control-label">订单创建时间</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="order_create_time" class="form-control" name="order_create_time" data-parsley-required="true"
+                                       placeholder="订单创建时间" value="${obj.order_create_time}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="order_create_user_id" class="col-sm-2 control-label">订单创建人ID</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="order_create_user_id" class="form-control" name="order_create_user_id" data-parsley-required="true"
+                                       placeholder="订单创建人ID" value="${obj.order_create_user_id}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="order_create_user_name" class="col-sm-2 control-label">订单创建人name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="order_create_user_name" class="form-control" name="order_create_user_name" data-parsley-required="true"
+                                       placeholder="订单创建人name" value="${obj.order_create_user_name}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_time" class="col-sm-2 control-label">最后修改时间</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="update_time" class="form-control" name="update_time" data-parsley-required="true"
+                                       placeholder="最后修改时间" value="${obj.update_time}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="update_user_id" class="col-sm-2 control-label">最后修改人ID</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="update_user_id" class="form-control" name="update_user_id" data-parsley-required="true"
+                                       placeholder="最后修改人ID" value="${obj.update_user_id}" >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatee_user_name" class="col-sm-2 control-label">最后修改人name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="updatee_user_name" class="form-control" name="updatee_user_name" data-parsley-required="true"
+                                       placeholder="最后修改人name" value="${obj.updatee_user_name}" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="form-group text-center">
+                        <label></label>
+
+                        <div>
+                            <button class="btn btn-primary btn-block btn-lg btn-parsley" data-loading-text="正在提交...">提 交</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+    </div>
+</div>
+<script language="JavaScript">
+    $(document).ready(function () {
+        $('#editForm').ajaxForm({
+            dataType: 'json',
+            beforeSubmit: function (arr, form, options) {
+                form.find("button:submit").button("loading");
+            },
+            success: function (data, statusText, xhr, form) {
+                if (data.code == 0) {
+                    Toast.success(data.msg);
+                    setTimeout(function () {
+                        $("#goback").trigger("click");
+                    }, 1000);
+                } else {
+                    Toast.error(data.msg);
+                }
+                form.find("button:submit").button("reset");
+            }
+        });
+    });
+</script>
+
+
+<%}%>

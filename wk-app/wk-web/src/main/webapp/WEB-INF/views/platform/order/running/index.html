@@ -13,30 +13,17 @@ layout("/layouts/platform.html"){
             <table class="table table-bordered table-striped mg-t datatable">
                 <thead>
                     <tr>
-                            <th>代驾地点</th>
-                            <th>代驾预约时间</th>
-                            <th>乘车人数</th>
-                            <th>被代驾人手机</th>
-                            <th>被代驾人姓名</th>
-                            <th>代驾订单来源</th>
-                            <th>代驾所属公司</th>
-                            <th>代驾客户经理ID</th>
-                            <th>代驾客户经理名</th>
-                            <th>是否订单定价</th>
-                            <th>定价金额</th>
-                            <th>订单备注</th>
-                            <th>订单状态</th>
-                            <th>订单类型</th>
-                            <th>接单司机ID</th>
-                            <th>接单司机名</th>
-                            <th>销单原因</th>
-                            <th>订单创建时间</th>
-                            <th>订单创建人ID</th>
-                            <th>订单创建人name</th>
-                            <th>订单最后修改时间</th>
-                            <th>最后修改人ID</th>
-                            <th>最后修改人name</th>
-                            <th>操作</th>
+                    <th>状态</th>
+                    <th>单号</th>
+                    <th>所属公司</th>
+                    <th>类型</th>
+                    <th>来源</th>
+                    <th>预约时间</th>
+                    <th>预约地</th>
+                    <th>客户姓名</th>
+                    <th>客户电话</th>
+                    <th>接单司机</th>
+                    <th>操作</th>
                     </tr>
                 </thead>
             </table>
@@ -99,29 +86,18 @@ layout("/layouts/platform.html"){
             },
             "order": [[0, "desc"]],
             "columns": [
-                    {"data": "dj_address", "bSortable": true},
-                    {"data": "dj_apment_time", "bSortable": true},
-                    {"data": "num_passengers", "bSortable": true},
-                    {"data": "mobile", "bSortable": true},
-                    {"data": "name", "bSortable": true},
-                    {"data": "dj_order_source", "bSortable": true},
-                    {"data": "dj_corporation", "bSortable": true},
-                    {"data": "dj_manager_id", "bSortable": true},
-                    {"data": "dj_manager_name", "bSortable": true},
-                    {"data": "order_is_pricing", "bSortable": true},
-                    {"data": "order_pricing_amount", "bSortable": true},
-                    {"data": "order_remark", "bSortable": true},
+                        
                     {"data": "order_status", "bSortable": true},
+                    {"data": "orderNo", "bSortable": true},
+                    {"data": "dj_corporation", "bSortable": true},
                     {"data": "order_type", "bSortable": true},
-                    {"data": "dj_sj_id", "bSortable": true},
+                    {"data": "dj_order_source", "bSortable": true},
+                    {"data": "dj_apment_time", "bSortable": true},
+                    {"data": "dj_address", "bSortable": true},
+                    {"data": "name", "bSortable": true},
+                    {"data": "mobile", "bSortable": true},
                     {"data": "dj_sj_name", "bSortable": true},
-                    {"data": "cancel_reamk", "bSortable": true},
-                    {"data": "order_create_time", "bSortable": true},
-                    {"data": "order_create_user_id", "bSortable": true},
-                    {"data": "order_create_user_name", "bSortable": true},
-                    {"data": "update_time", "bSortable": true},
-                    {"data": "update_user_id", "bSortable": true},
-                    {"data": "updatee_user_name", "bSortable": true},
+                    
             ],
             "columnDefs": [
                 {
@@ -134,7 +110,7 @@ layout("/layouts/platform.html"){
                                 '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
                                 '</ul></div>';
                     },
-                    "targets": 23
+                    "targets": 10
                 }
             ]
         });

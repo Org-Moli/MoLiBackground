@@ -44,12 +44,12 @@ layout("/layouts/platform.html"){
                          <table style="margin-left:20px;" border="1px solid">
                              <tr>
 	                             <td>
-	                             	<span class="btn btn-default" style='cursor:text'>地点</span><input size="50" placeholder="附近的小区/街道/建筑物/商圈" id="tipinput" name="fromPlace" type="text" value="" autocomplete="off" required=""  name="dj_address"><button class="btn btn-default" type="button" id="btn-position">定位</button>
+	                             	<span class="btn btn-default" style='cursor:text'>地点</span><input size="50" placeholder="附近的小区/街道/建筑物/商圈" id="tipinput"  type="text"   required=""  name="dj_address"><button class="btn btn-default" type="button" id="btn-position">定位</button>
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
-	                             	<input   value=""  id="datepicker">人数<input   name="num_passengers" type="number" value="1" required="" min="1" max="10">
+	                             	<input   value="" name="dj_apment_time"  id="datepicker">人数<input   name="num_passengers" type="number" value="1" required="" min="1" max="10">
 	                             </td>
                              
                              </tr>
@@ -86,7 +86,7 @@ layout("/layouts/platform.html"){
                              </tr>
                              <tr>
                                  <td>
-	                             	 订单定价：<input type="checkbox" id="djBox">
+	                             	 订单定价：<input type="checkbox" id="djBox" value="1" name="order_is_pricing">
 	                             </td>
                              </tr>
                              <tr id="djAmountTr" style="display: none;">
