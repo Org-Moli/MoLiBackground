@@ -30,7 +30,7 @@ public class RefuseOrderController {
 	@Inject
 	private RefuseOrderServiceimpl refuseOrderService;
 
-	@At("")
+	@At("/index")
 	@Ok("beetl:/platform/refuse/order/index.html")
 	@RequiresAuthentication
 	public void index() {
