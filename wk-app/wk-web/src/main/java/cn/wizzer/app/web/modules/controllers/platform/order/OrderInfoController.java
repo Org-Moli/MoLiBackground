@@ -17,8 +17,11 @@ import cn.wizzer.framework.page.datatable.DataTableOrder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @IocBean
@@ -50,11 +53,12 @@ public class OrderInfoController {
 
     }
 
-    @At
+    @At("/addDo")
     @Ok("json")
     @SLog(tag = "新建Order_Info", msg = "")
     public Object addDo(@Param("..") Order_Info orderInfo, HttpServletRequest req) {
 		try {
+			orderInfo.setOrderNo(createOrderNo());
 			orderInfoService.insert(orderInfo);
 			return Result.success("system.success");
 		} catch (Exception e) {
@@ -112,6 +116,17 @@ public class OrderInfoController {
 
 		}
 		return null;
+    }
+    
+    private String createOrderNo(){
+			int hashCodeV = UUID.randomUUID().toString().hashCode();
+			if(hashCodeV < 0) {//有可能是负数
+			hashCodeV = - hashCodeV;
+			}
+			// 0 代表前面补充0       
+			// 15 代表长度为15      
+			// d 代表参数为正数型 
+			return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())+String.format("%015d", hashCodeV);
     }
 
 }

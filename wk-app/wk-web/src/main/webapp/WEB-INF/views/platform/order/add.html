@@ -24,7 +24,11 @@ layout("/layouts/platform.html"){
             background-color: yellow;
         }
 </style>
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=aa9e39802544018e2097bfed8baed1cb&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+<link type="text/css" href="${base}/assets/css/ui.all.css" />
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=aa9e39802544018e2097bfed8baed1cb&plugin=AMap.Autocomplete,AMap.PlaceSearch&callback=init"></script>
+<script type="text/javascript" src="${base}/assets/js/ui.datepicker.js"></script>
+<script type="text/javascript" src="${base}/assets/js/ui.datepicker-zh-CN.js"></script>
+
 <header class="header navbar bg-white shadow">
     <div class="btn-group tool-button">
         <a class="btn btn-primary navbar-btn" href="${base}/platform/order/index" data-pjax><i class="ti-angle-left"></i> 返回</a>
@@ -36,59 +40,59 @@ layout("/layouts/platform.html"){
 	        <div class="area">
 				    <div class="leftarea" id="containerGdMap"></div>
 				    <div class="rightarea">
-				<form id="addForm" role="form" class="form-horizontal parsley-form" data-parsley-validate action="${base}/platform/order/addDo" method="post">
+				<form id="addForm"   data-parsley-validate action="${base}/platform/order/addDo" method="post">
                          <table style="margin-left:20px;" border="1px solid">
                              <tr>
 	                             <td>
-	                             	<span class="btn btn-default" style='cursor:text'>地点</span><input size="50" placeholder="附近的小区/街道/建筑物/商圈" id="tipinput" name="fromPlace" type="text" value="" autocomplete="off" required=""><button class="btn btn-default" type="button" id="btn-position">定位</button>
+	                             	<span class="btn btn-default" style='cursor:text'>地点</span><input size="50" placeholder="附近的小区/街道/建筑物/商圈" id="tipinput" name="fromPlace" type="text" value="" autocomplete="off" required=""  name="dj_address"><button class="btn btn-default" type="button" id="btn-position">定位</button>
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
-	                             	<input name="fromPlace" type="text" value="" autocomplete="off" required="">人数<input  id="driverNum" name="driverNum" type="number" value="1" required="" min="1" max="10">
+	                             	<input   value=""  id="datepicker">人数<input   name="num_passengers" type="number" value="1" required="" min="1" max="10">
 	                             </td>
                              
                              </tr>
                              <tr>
                                 <td>
-	                             	<span class="btn btn-default" style='cursor:text'>客户手机</span><input name="fromPlace" type="text" value="" autocomplete="off" required="">
+	                             	<span class="btn btn-default" style='cursor:text'>客户手机</span><input name="mobile" type="text" value="" autocomplete="off" required="">
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
-	                             	<span class="btn btn-default" style='cursor:text'>客户姓名</span><input name="fromPlace" type="text" value="" autocomplete="off" required="">
+	                             	<span class="btn btn-default" style='cursor:text'>客户姓名</span><input name="name" type="text" value="" autocomplete="off" required="">
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
-	                             	<span class="btn btn-default" style='cursor:text'>订单来源</span><input name="fromPlace" type="text" value="" autocomplete="off" required="">
+	                             	<span class="btn btn-default" style='cursor:text'>订单来源</span><input name="dj_order_source" type="text" value="" autocomplete="off" required="">
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
 	                             	<span class="btn btn-default" style='cursor:text'>所属公司</span>
-	                             	 <select  id="companyId" name="companyId">
-					            			<option data-city="苏州市" value="1" selected="selected">畅平代驾</option>
+	                             	 <select   name="dj_corporation">
+					            			<option data-city="苏州市" value="畅平代驾" selected="selected">畅平代驾</option>
 					            	</select>
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
 	                             	<span class="btn btn-default" style='cursor:text'>客户经理</span>
-	                             	 <select  id="companyId" name="companyId">
-					            			<option data-city="苏州市" value="1" selected="selected">--无--</option>
+	                             	 <select   name="dj_manager_name">
+					            			<option data-city="苏州市" value="大毛" selected="selected">大毛</option>
 					            	</select>
 	                             </td>
                              </tr>
                              <tr>
                                  <td>
-	                             	 订单定价：<input type="checkbox">
+	                             	 订单定价：<input type="checkbox" id="djBox">
 	                             </td>
                              </tr>
-                             <tr>
+                             <tr id="djAmountTr" style="display: none;">
                                  <td>
 	                             	<span class="btn btn-default" style='cursor:text'>定价金额</span>
-	                             	<input id="fixPriceMoney" name="fixPriceMoney" type="number" min="0" required="">
+	                             	<input  name="order_pricing_amount" type="number" min="0" required="">
 	                             </td>
                              </tr>
                              <tr>
@@ -98,7 +102,7 @@ layout("/layouts/platform.html"){
                              </tr>
                              <tr>
                                  <td>
-	                             	<textarea rows="3"></textarea>
+	                             	<textarea rows="3" name="order_remark"></textarea>
 	                             </td>
                              </tr>
                              <tr>
@@ -136,6 +140,29 @@ layout("/layouts/platform.html"){
     </div>
 </div>
 <script language="JavaScript">
+
+   function init(){
+	 //地图加载
+       var map = new AMap.Map("containerGdMap", {
+            resizeEnable: true
+       });
+       //输入提示
+       var autoOptions = {
+           input: "tipinput"
+       };
+       var auto = new AMap.Autocomplete(autoOptions);
+       var placeSearch = new AMap.PlaceSearch({
+           map: map
+       });  //构造地点查询类
+       AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
+       function select(e) {
+           placeSearch.setCity(e.poi.adcode);
+           placeSearch.search(e.poi.name);  //关键字查询查询
+           //经度和纬度
+           alert(  e.poi.location.lng + ',' + e.poi.location.lat);
+       }
+   }
+
     $(document).ready(function () {
         $('#addForm').ajaxForm({
             dataType: 'json',
@@ -152,26 +179,11 @@ layout("/layouts/platform.html"){
                 form.find("button:submit").button("reset");
             }
         });
-        
-        //地图加载
-        var map = new AMap.Map("containerGdMap", {
-             resizeEnable: true
-        });
-        //输入提示
-        var autoOptions = {
-            input: "tipinput"
-        };
-        var auto = new AMap.Autocomplete(autoOptions);
-        var placeSearch = new AMap.PlaceSearch({
-            map: map
-        });  //构造地点查询类
-        AMap.event.addListener(auto, "select", select);//注册监听，当选中某条记录时会触发
-        function select(e) {
-            placeSearch.setCity(e.poi.adcode);
-            placeSearch.search(e.poi.name);  //关键字查询查询
-        }
-        
-        
+        $.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+        $("#datepicker").datepicker();
+        $("#djBox").click(function(){
+        	  $("#djAmountTr").toggle();
+        	});
     });
 </script>
 <%}%>

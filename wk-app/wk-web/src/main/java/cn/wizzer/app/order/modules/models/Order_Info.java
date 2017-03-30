@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by Hans on 2017/3/28.
  */
-@Table("order_info")
+@Table("order_info") 
 public class Order_Info {
 
     private static final long serialVersionUID = 1L;
