@@ -32,9 +32,32 @@ public class UserInfoController {
     @At
     @Ok("json:full")
     @RequiresAuthentication
-    public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
+    public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw
+            , @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns,
+            Integer userStatus, Double balance, Integer workStatus, Integer emptypeType, String queryStr) {
         Cnd cnd = Cnd.NEW();
-        cnd.and("userStatus","=","1");
+        if(userStatus != null)
+        {
+            cnd.and("userStatus","=",userStatus);
+        }
+        if(balance != null)
+        {
+            cnd.and("balance","<",balance);
+        }
+        if(workStatus != null)
+        {
+            cnd.and("workStatus","=",workStatus);
+        }
+        if(emptypeType != null)
+        {
+            cnd.and("emptypeType","=",emptypeType);
+        }
+        if(StringUtils.isNotBlank(queryStr))
+        {
+            cnd.or("jobNumber","=",queryStr);
+            cnd.or("userName","=",queryStr);
+            cnd.or("mobile","=",queryStr);
+        }
         return userInfoService.data(length, start, draw, order, columns, cnd, null);
     }
 
