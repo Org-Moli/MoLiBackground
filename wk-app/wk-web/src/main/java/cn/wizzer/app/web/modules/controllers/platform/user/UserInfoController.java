@@ -19,6 +19,7 @@ import org.nutz.mvc.adaptor.WhaleAdaptor;
 import org.nutz.mvc.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -71,8 +72,13 @@ public class UserInfoController {
     @At("/audit/?")
     @Ok("beetl:/platform/user/info/auditInfo.html")
     @RequiresAuthentication
-    public Object auditById(Integer id) {
-        return userInfoService.fetch(id);
+    public Object auditById(Integer id,HttpServletRequest request) {
+        User_Info user_info = userInfoService.fetch(id);
+        if(user_info.getPapersTime() != null)
+        {
+            request.setAttribute("papersTime",new SimpleDateFormat("yyyy-MM-dd").format(user_info.getPapersTime()));
+        }
+        return user_info;
     }
 
     @At
@@ -122,8 +128,13 @@ public class UserInfoController {
     @At("/edit/?")
     @Ok("beetl:/platform/user/info/edit.html")
     @RequiresAuthentication
-    public Object edit(Integer id) {
-		return userInfoService.fetch(id);
+    public Object edit(Integer id,HttpServletRequest request) {
+        User_Info user_info = userInfoService.fetch(id);
+        if(user_info.getPapersTime() != null)
+        {
+            request.setAttribute("papersTime",new SimpleDateFormat("yyyy-MM-dd").format(user_info.getPapersTime()));
+        }
+		return user_info;
     }
 
     @At
