@@ -1,4 +1,8 @@
 package cn.wizzer.app.web.modules.controllers.platform.order;
+
+
+
+
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -8,35 +12,29 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.annotation.*;
 
+import cn.wizzer.app.order.modules.models.Settlement_order;
+import cn.wizzer.app.order.modules.services.impl.SettlementOrderServiceimpl;
 import cn.wizzer.app.web.commons.slog.annotation.SLog;
 import cn.wizzer.framework.base.Result;
-import cn.wizzer.app.order.modules.models.Order_Info;
-import cn.wizzer.app.order.modules.services.OrderInfoService;
 import cn.wizzer.framework.page.datatable.DataTableColumn;
 import cn.wizzer.framework.page.datatable.DataTableOrder;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
-
 
 @IocBean
-@At("/platform/order")
-public class OrderInfoController {
+@At("/platform/settlement/order")
+public class SettlementOrderController {
 	private static final Log log = Logs.get();
 	@Inject
-	private OrderInfoService orderInfoService;
-    
-	//执行中
-	@At("/running")
-	@Ok("beetl:/platform/order/running/index.html")
+	private SettlementOrderServiceimpl settlementOrderService;
+
+	@At("")
+	@Ok("beetl:/platform/settlement/order/index.html")
 	@RequiresAuthentication
 	public void index() {
-           
+
 	}
 
 	@At
@@ -44,26 +42,22 @@ public class OrderInfoController {
 	@RequiresAuthentication
 	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
 		Cnd cnd = Cnd.NEW();
-    	return orderInfoService.data(length, start, draw, order, columns, cnd, null);
+    	return settlementOrderService.data(length, start, draw, order, columns, cnd, null);
     }
 
     @At
-    @Ok("beetl:/platform/order/running/add.html")
+    @Ok("beetl:/platform/settlement/order/add.html")
     @RequiresAuthentication
     public void add() {
 
     }
 
-    @At("/addDo")
+    @At
     @Ok("json")
-    @SLog(tag = "新建Order_Info", msg = "")
-    public Object addDo(@Param("..") Order_Info orderInfo, HttpServletRequest req) {
+    @SLog(tag = "新建Settlement_order", msg = "")
+    public Object addDo(@Param("..") Settlement_order settlementOrder, HttpServletRequest req) {
 		try {
-			orderInfo.setOrderNo(createOrderNo());//生成订单
-			orderInfo.setOrder_create_time(new Date());
-			orderInfo.setUpdate_time(new Date());
-			orderInfo.setOrder_create_user_name("测试用户");
-			orderInfoService.insert(orderInfo);
+			settlementOrderService.insert(settlementOrder);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -71,20 +65,19 @@ public class OrderInfoController {
     }
 
     @At("/edit/?")
-    @Ok("beetl:/platform/order/running/edit.html")
+    @Ok("beetl:/platform/settlement/order/edit.html")
     @RequiresAuthentication
     public Object edit(String id) {
-		return orderInfoService.fetch(id);
+		return settlementOrderService.fetch(id);
     }
 
     @At
     @Ok("json")
-    @SLog(tag = "修改Order_Info", msg = "ID:${args[0].id}")
-    public Object editDo(@Param("..") Order_Info orderInfo, HttpServletRequest req) {
+    @SLog(tag = "修改Settlement_order", msg = "ID:${args[0].id}")
+    public Object editDo(@Param("..") Settlement_order settlementOrder, HttpServletRequest req) {
 		try {
 
-			orderInfo.setUpdate_time(new Date());
-			orderInfoService.updateIgnoreNull(orderInfo);
+			settlementOrderService.updateIgnoreNull(settlementOrder);
 			return Result.success("system.success");
 		} catch (Exception e) {
 			return Result.error("system.error");
@@ -94,14 +87,14 @@ public class OrderInfoController {
 
     @At({"/delete","/delete/?"})
     @Ok("json")
-    @SLog(tag = "删除Order_Info", msg = "ID:${args[2].getAttribute('id')}")
+    @SLog(tag = "删除Settlement_order", msg = "ID:${args[2].getAttribute('id')}")
     public Object delete(String id, @Param("ids") String[] ids ,HttpServletRequest req) {
 		try {
 			if(ids!=null&&ids.length>0){
-				orderInfoService.delete(ids);
+				settlementOrderService.delete(ids);
     			req.setAttribute("id", org.apache.shiro.util.StringUtils.toString(ids));
 			}else{
-				orderInfoService.delete(id);
+				settlementOrderService.delete(id);
     			req.setAttribute("id", id);
 			}
 			return Result.success("system.success");
@@ -112,25 +105,14 @@ public class OrderInfoController {
 
 
     @At("/detail/?")
-    @Ok("beetl:/platform/order/running/detail.html")
+    @Ok("beetl:/platform/settlement/order/detail.html")
     @RequiresAuthentication
 	public Object detail(String id) {
 		if (!Strings.isBlank(id)) {
-			return orderInfoService.fetch(id);
+			return settlementOrderService.fetch(id);
 
 		}
 		return null;
-    }
-    
-    private String createOrderNo(){
-			int hashCodeV = UUID.randomUUID().toString().hashCode();
-			if(hashCodeV < 0) {//有可能是负数
-			hashCodeV = - hashCodeV;
-			}
-			// 0 代表前面补充0       
-			// 15 代表长度为15      
-			// d 代表参数为正数型 
-			return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime())+String.format("%015d", hashCodeV);
     }
 
 }
