@@ -1,7 +1,10 @@
 package cn.wizzer.app.web.modules.controllers.platform.user;
 
 import cn.wizzer.app.user.modules.models.User_Info;
+import cn.wizzer.app.user.modules.models.User_Safe;
 import cn.wizzer.app.user.modules.services.UserInfoService;
+import cn.wizzer.app.user.modules.services.UserSafeService;
+import cn.wizzer.app.utils.Md5Utils;
 import cn.wizzer.app.web.commons.slog.annotation.SLog;
 import cn.wizzer.framework.base.Result;
 import cn.wizzer.framework.page.datatable.DataTableColumn;
@@ -29,6 +32,9 @@ public class UserInfoController {
 	private static final Log log = Logs.get();
 	@Inject
 	private UserInfoService userInfoService;
+
+    @Inject
+    private UserSafeService userSafeService;
 
     @At
     @Ok("json:full")
@@ -118,6 +124,12 @@ public class UserInfoController {
             String jobNumber = "DR" + String.format("%6d", userInfo.getId()).replace(" ", "0");
             userInfo.setJobNumber(jobNumber);
             userInfoService.updateIgnoreNull(userInfo);
+            //生成api_key + security_key
+            User_Safe user_safe = new User_Safe();
+            user_safe.setUserId(userInfo.getId());
+            user_safe.setApi_key(Md5Utils.md5("APIKEY_" + userInfo.getId()));
+            user_safe.setSecurity_key(Md5Utils.md5("SECURITYKEY_" + userInfo.getId()));
+            userSafeService.insert(user_safe);
 			return Result.success("system.success");
 		} catch (Exception e) {
             e.printStackTrace();
@@ -161,6 +173,7 @@ public class UserInfoController {
     			req.setAttribute("id", org.apache.shiro.util.StringUtils.toString(ids));
 			}else{
 				userInfoService.deleteUserById(id);
+                userSafeService.deleteByUserId(id);
     			req.setAttribute("id", id);
 			}
 			return Result.success("system.success");
