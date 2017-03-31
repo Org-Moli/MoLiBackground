@@ -112,7 +112,7 @@ public class UserInfoController {
 
     @At
     @Ok("json")
-    @SLog(tag = "新建司机工号[${args[0].jobNumber}]", msg = "")
+    @SLog(tag = "新建司机[${args[0].userName}]|手机:[${args[0].mobile}]", msg = "")
     @AdaptBy(type = WhaleAdaptor.class)
     public Object addDo(@Param("..") User_Info userInfo, HttpServletRequest req) {
 		try {
@@ -120,6 +120,8 @@ public class UserInfoController {
             userInfo.setBalance(0.00);
             userInfo.setUserStatus(1);
             userInfo.setWorkStatus(0);
+            userInfo.setLogonId(userInfo.getMobile());
+            userInfo.setPassword(Md5Utils.md5("123456"));
 			userInfoService.insert(userInfo);
             String jobNumber = "DR" + String.format("%6d", userInfo.getId()).replace(" ", "0");
             userInfo.setJobNumber(jobNumber);

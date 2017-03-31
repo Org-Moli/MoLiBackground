@@ -134,6 +134,9 @@ public class User_Info implements Serializable{
     @Column("geo_code")
     private String geoCode;
 
+    @Column
+    private String logonId;
+
     public Integer getId() {
         return id;
     }
@@ -402,5 +405,15 @@ public class User_Info implements Serializable{
     public void setGeoCode(String geoCode)
     {
         this.geoCode = geoCode;
+    }
+
+    public String getLogonId()
+    {
+        return logonId;
+    }
+
+    public void setLogonId(String logonId)
+    {
+        this.logonId = logonId;
     }
 }
