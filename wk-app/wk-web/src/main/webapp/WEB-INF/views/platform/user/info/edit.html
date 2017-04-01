@@ -155,6 +155,21 @@ layout("/layouts/platform.html"){
                                 <input type="text" id="djCnt" class="form-control" name="djCnt" value="${obj.djCnt}" placeholder="代驾次数">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="sysUnitId" class="col-sm-2 control-label">所属公司</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="sysUnitId" name="sysUnitId">
+                                    <%
+                                    for(unit in sysUnitList)
+                                    {
+                                    %>
+                                    <option value="${unit.id}" ${obj.sysUnitId==unit.id?"selected"}>${unit.name}</option>
+                                    <%
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                        </div>
                         <!--<div class="form-group">
                             <label for="workStatus" class="col-sm-2 control-label">介绍人</label>
                             <div class="col-sm-8">

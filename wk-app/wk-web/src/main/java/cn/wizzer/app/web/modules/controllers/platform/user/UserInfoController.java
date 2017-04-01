@@ -4,7 +4,9 @@ import cn.wizzer.app.sys.modules.models.Sys_unit;
 import cn.wizzer.app.sys.modules.services.SysUnitService;
 import cn.wizzer.app.user.modules.models.User_Info;
 import cn.wizzer.app.user.modules.models.User_Safe;
+import cn.wizzer.app.user.modules.models.User_invite;
 import cn.wizzer.app.user.modules.services.UserInfoService;
+import cn.wizzer.app.user.modules.services.UserInviteService;
 import cn.wizzer.app.user.modules.services.UserSafeService;
 import cn.wizzer.app.utils.Md5Utils;
 import cn.wizzer.app.web.commons.slog.annotation.SLog;
@@ -17,7 +19,6 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.nutz.mvc.adaptor.WhaleAdaptor;
@@ -40,6 +41,9 @@ public class UserInfoController {
 
     @Inject
     private SysUnitService sysUnitService;
+
+    @Inject
+    private UserInviteService userInviteService;
 
     @At
     @Ok("json:full")
@@ -140,6 +144,15 @@ public class UserInfoController {
             user_safe.setApi_key(Md5Utils.md5("APIKEY_" + userInfo.getId()));
             user_safe.setSecurity_key(Md5Utils.md5("SECURITYKEY_" + userInfo.getId()));
             userSafeService.insert(user_safe);
+            //保存邀请信息
+            if(userSearch != null)
+            {
+                User_invite user_invite = new User_invite();
+                user_invite.setUserId(userSearch);
+                user_invite.setInviteId(userInfo.getId());
+                user_invite.setInviteTime(new Date());
+                userInviteService.insert(user_invite);
+            }
 			return Result.success("system.success");
 		} catch (Exception e) {
             e.printStackTrace();
@@ -156,6 +169,8 @@ public class UserInfoController {
         {
             request.setAttribute("papersTime",new SimpleDateFormat("yyyy-MM-dd").format(user_info.getPapersTime()));
         }
+        List<Sys_unit> sysUnitList = sysUnitService.query(Cnd.where("delFlag","=",0));
+        request.setAttribute("sysUnitList",sysUnitList);
 		return user_info;
     }
 
