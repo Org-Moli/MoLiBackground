@@ -19,7 +19,7 @@ public interface UserInfoService extends BaseService<User_Info> {
      * @param sysUnitId 单位ID
      * @return
      */
-    List<User_Info> listUserInfoBySysUnitId(Integer sysUnitId);
+    List<User_Info> listUserInfoBySysUnitId(String sysUnitId);
 
 
     /***
@@ -29,7 +29,7 @@ public interface UserInfoService extends BaseService<User_Info> {
      * @param lat 维度
      * @return
      */
-    List<User_Info> listUserByUnitIdAndLonAndLat(Integer sysUnitId, double lon, double lat);
+    List<User_Info> listUserByUnitIdAndLonAndLat(String sysUnitId, double lon, double lat);
 
     /***
      * 根据经纬度查询空闲司机
@@ -47,7 +47,7 @@ public interface UserInfoService extends BaseService<User_Info> {
      * @param radius
      * @return
      */
-    List<Map> listUserByUnitIdAndLonAndLatAndRadius(Integer sysUnitId, double lon, double lat, double radius);
+    List<Map> listUserByUnitIdAndLonAndLatAndRadius(String sysUnitId, double lon, double lat, double radius);
 
     /***
      * 根据经纬度，范围半径(KM)查询空闲司机

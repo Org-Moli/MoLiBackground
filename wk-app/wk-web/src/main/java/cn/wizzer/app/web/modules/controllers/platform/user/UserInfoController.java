@@ -1,5 +1,7 @@
 package cn.wizzer.app.web.modules.controllers.platform.user;
 
+import cn.wizzer.app.sys.modules.models.Sys_unit;
+import cn.wizzer.app.sys.modules.services.SysUnitService;
 import cn.wizzer.app.user.modules.models.User_Info;
 import cn.wizzer.app.user.modules.models.User_Safe;
 import cn.wizzer.app.user.modules.services.UserInfoService;
@@ -35,6 +37,9 @@ public class UserInfoController {
 
     @Inject
     private UserSafeService userSafeService;
+
+    @Inject
+    private SysUnitService sysUnitService;
 
     @At
     @Ok("json:full")
@@ -107,7 +112,9 @@ public class UserInfoController {
     @Ok("beetl:/platform/user/info/add.html")
     @RequiresPermissions("user.manager.driver.add")
     @RequiresAuthentication()
-    public void add() {
+    public void add(HttpServletRequest request) {
+        List<Sys_unit> sysUnitList = sysUnitService.query(Cnd.where("delFlag","=",0));
+        request.setAttribute("sysUnitList",sysUnitList);
     }
 
     @At
@@ -305,14 +312,14 @@ public class UserInfoController {
     @At("/free/?")
     @Ok("json:full")
     @RequiresAuthentication
-    public Object data(Integer sysUnitId) {
+    public Object data(String sysUnitId) {
         return userInfoService.listUserInfoBySysUnitId(sysUnitId);
     }
 
     @At("/free")
     @Ok("json:full")
     @RequiresAuthentication
-    public Object freeData(Integer sysUnitId, Double lon, Double lat, Double radius) {
+    public Object freeData(String sysUnitId, Double lon, Double lat, Double radius) {
         if(radius != null)
         {
             if(sysUnitId != null)

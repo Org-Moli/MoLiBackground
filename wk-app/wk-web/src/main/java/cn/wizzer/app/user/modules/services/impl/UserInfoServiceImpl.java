@@ -62,7 +62,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
      * @return
      */
     @Override
-    public List<User_Info> listUserInfoBySysUnitId(Integer sysUnitId)
+    public List<User_Info> listUserInfoBySysUnitId(String sysUnitId)
     {
         return this.query(Cnd.where("sysUnitId", "=", sysUnitId).and("workStatus","=",1).and("userStatus","=",1));
     }
@@ -75,7 +75,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
      * @return
      */
     @Override
-    public List<User_Info> listUserByUnitIdAndLonAndLat(Integer sysUnitId, double lon, double lat)
+    public List<User_Info> listUserByUnitIdAndLonAndLat(String sysUnitId, double lon, double lat)
     {
         //默认周围2.4KM
         String geocode = GeohashUtils.encodeLatLon(lat, lon, 5);
@@ -110,14 +110,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
      * @return
      */
     @Override
-    public List<Map> listUserByUnitIdAndLonAndLatAndRadius(Integer sysUnitId, double lon, double lat, double radius)
+    public List<Map> listUserByUnitIdAndLonAndLatAndRadius(String sysUnitId, double lon, double lat, double radius)
     {
         int p = getPrecision(radius);
         String geocode = GeohashUtils.encodeLatLon(lat, lon, p);
-        Condition c = Cnd.where("sysUnitId", "=", sysUnitId)
-                        .and("geo_code", "like", "%" + geocode + "%")
-                        .and("workStatus", "=", 1).and("userStatus", "=", 1);
-
         StringBuffer sqlBuffer = new StringBuffer();
         sqlBuffer.append("select \n");
         sqlBuffer.append("        id, \n");
@@ -133,7 +129,7 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
         sqlBuffer.append("        lat \n");
         sqlBuffer.append("from user_info \n");
         sqlBuffer.append("where   1 = 1 \n");
-        sqlBuffer.append("        and sysUnitId = " + sysUnitId + " \n");
+        sqlBuffer.append("        and sysUnitId = '" + sysUnitId + "' \n");
         sqlBuffer.append("        and geo_code like '%" + geocode + "%' \n");
         sqlBuffer.append("        and workStatus = 1 \n");
         sqlBuffer.append("        and userStatus = 1 \n");

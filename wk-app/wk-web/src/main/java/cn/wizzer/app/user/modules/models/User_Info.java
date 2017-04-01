@@ -129,7 +129,7 @@ public class User_Info implements Serializable{
     private String remark;
 
     @Column
-    private Integer sysUnitId;
+    private String sysUnitId;
 
     @Column("geo_code")
     private String geoCode;
@@ -369,11 +369,13 @@ public class User_Info implements Serializable{
         this.remark = remark;
     }
 
-    public Integer getSysUnitId() {
+    public String getSysUnitId()
+    {
         return sysUnitId;
     }
 
-    public void setSysUnitId(Integer sysUnitId) {
+    public void setSysUnitId(String sysUnitId)
+    {
         this.sysUnitId = sysUnitId;
     }
 
