@@ -29,7 +29,6 @@ CREATE TABLE `user_info` (
   `location` varchar(100) DEFAULT NULL COMMENT '当前位置',
   `lon` double(18,14) DEFAULT NULL COMMENT '经度',
   `lat` double(18,14) DEFAULT NULL COMMENT '纬度',
-  `uploadTime` datetime DEFAULT NULL COMMENT '上传时间',
   `remark` varchar(200) DEFAULT NULL COMMENT '备注',
   `sysUnitId` varchar(32) DEFAULT NULL COMMENT '所属单位ID',
   `geo_code` char(12) DEFAULT NULL COMMENT 'geohash编码（精确度1.2m左右）',

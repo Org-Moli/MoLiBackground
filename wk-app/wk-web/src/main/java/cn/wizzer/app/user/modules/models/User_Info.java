@@ -122,10 +122,6 @@ public class User_Info implements Serializable{
     private Double lat;
 
     @Column
-    @Comment("上传时间")
-    private Date uploadTime;
-
-    @Column
     private String remark;
 
     @Column
@@ -351,14 +347,6 @@ public class User_Info implements Serializable{
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public Date getUploadTime() {
-        return uploadTime;
-    }
-
-    public void setUploadTime(Date uploadTime) {
-        this.uploadTime = uploadTime;
     }
 
     public String getRemark() {

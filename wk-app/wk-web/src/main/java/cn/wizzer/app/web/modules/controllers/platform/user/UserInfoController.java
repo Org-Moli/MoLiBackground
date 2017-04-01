@@ -128,12 +128,13 @@ public class UserInfoController {
     @AdaptBy(type = WhaleAdaptor.class)
     public Object addDo(@Param("..") User_Info userInfo, @Param("userSearch")Integer userSearch,HttpServletRequest req) {
 		try {
-            userInfo.setUploadTime(new Date());
             userInfo.setBalance(0.00);
             userInfo.setUserStatus(1);
             userInfo.setWorkStatus(0);
             userInfo.setLogonId(userInfo.getMobile());
             userInfo.setPassword(Md5Utils.md5("123456"));
+            userInfo.setHireDate(new Date());
+            userInfo.setApplyTime(new Date());
 			userInfoService.insert(userInfo);
             String jobNumber = "DR" + String.format("%6d", userInfo.getId()).replace(" ", "0");
             userInfo.setJobNumber(jobNumber);
