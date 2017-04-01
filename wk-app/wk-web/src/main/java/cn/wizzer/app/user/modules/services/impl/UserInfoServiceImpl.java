@@ -168,7 +168,10 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
                     * DistanceUtils.DEG_TO_KM;
             u.put("distance",distance);
          });
-        return userList.stream().filter(m -> (Double)m.get("distance") <= radius).collect(toList());
+        userList.stream().filter(m -> (Double) m.get("distance") <= radius)
+                .collect(toList())
+                .sort((p1, p2) -> ((Double) p1.get("distance")).compareTo((Double) p2.get("distance")));
+        return userList;
     }
 
     /***
@@ -236,7 +239,45 @@ public class UserInfoServiceImpl extends BaseServiceImpl<User_Info> implements U
                     * DistanceUtils.DEG_TO_KM;
             u.put("distance",distance);
         });
-        return userList.stream().filter(m -> (Double)m.get("distance") <= radius).collect(toList());
+        userList.stream().filter(m -> (Double) m.get("distance") <= radius)
+                .collect(toList())
+                .sort((p1, p2) -> ((Double) p1.get("distance")).compareTo((Double) p2.get("distance")));
+        return userList;
+    }
+
+    @Override
+    public List<Map> listUserByQuery(String queryStr)
+    {
+        StringBuffer sqlBuffer = new StringBuffer();
+        sqlBuffer.append("select \n");
+        sqlBuffer.append("        id, \n");
+        sqlBuffer.append("        nickName, \n");
+        sqlBuffer.append("        userName, \n");
+        sqlBuffer.append("        sex, \n");
+        sqlBuffer.append("        jobNumber, \n");
+        sqlBuffer.append("        mobile, \n");
+        sqlBuffer.append("        workStatus, \n");
+        sqlBuffer.append("        userStatus, \n");
+        sqlBuffer.append("        balance, \n");
+        sqlBuffer.append("        lon, \n");
+        sqlBuffer.append("        lat \n");
+        sqlBuffer.append("from user_info \n");
+        sqlBuffer.append("where \n");
+        sqlBuffer.append("  (   mobile like '%" + queryStr + "%' \n");
+        sqlBuffer.append("  or  jobNumber like '%" + queryStr + "%' \n");
+        sqlBuffer.append("  )");
+        Sql sql = Sqls.create(sqlBuffer.toString());
+        sql.setCallback(new SqlCallback() {
+            @Override
+            public Object invoke(Connection conn, ResultSet rs, Sql sql) throws SQLException
+            {
+                ResultSetMetaData metaData = rs.getMetaData();
+                return ResultToSetUtils.listMap(metaData,rs);
+            }
+        });
+        dao().execute(sql);
+        List<Map> userList = sql.getList(Map.class);
+        return userList;
     }
 
     private int getPrecision(double radius)

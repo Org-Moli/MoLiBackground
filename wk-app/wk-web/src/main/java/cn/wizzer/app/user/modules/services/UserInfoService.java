@@ -57,5 +57,11 @@ public interface UserInfoService extends BaseService<User_Info> {
      * @return
      */
     List<Map> listUserByLonAndLatAndRadius(double lon, double lat, double radius);
+
+    /**
+     * 查询司机列表
+     * @return
+     */
+    List<Map> listUserByQuery(String queryStr);
 }
 

@@ -36,12 +36,17 @@ public class ResultToSetUtils {
                 for(int i = 1; i <= metaData.getColumnCount(); i++)
                 {
                     String columnLabel = metaData.getColumnLabel(i);
-                    String mysqlType = metaData.getColumnTypeName(i);
+                    //String mysqlType = metaData.getColumnTypeName(i);
+                    map.put(columnLabel,rs.getObject(columnLabel));
                     //System.out.println("columnLabel:" + columnLabel + "|mysqlType:" + mysqlType);
-                    if(mysqlType.equalsIgnoreCase("INT"))
+                    /*if(mysqlType.equalsIgnoreCase("INT"))
                     {
                         map.put(columnLabel,(rs.getObject(columnLabel) == null ? null : rs.getInt(columnLabel)));
-                    }else if(mysqlType.equalsIgnoreCase("LONG"))
+                    }else  if(mysqlType.equalsIgnoreCase("BIGINT"))
+                    {
+                        map.put(columnLabel,(rs.getObject(columnLabel) == null ? null : rs.getInt(columnLabel)));
+                    }
+                    else if(mysqlType.equalsIgnoreCase("LONG"))
                     {
                         map.put(columnLabel,(rs.getObject(columnLabel) == null ? null : rs.getLong(columnLabel)));
                     }else if(mysqlType.equalsIgnoreCase("DOUBLE"))
@@ -59,7 +64,7 @@ public class ResultToSetUtils {
                     }else if(mysqlType.equalsIgnoreCase("TINYINT"))
                     {
                         map.put(columnLabel,(rs.getObject(columnLabel) == null ? null : rs.getBoolean(columnLabel)));
-                    }
+                    }*/
                 }
                 list.add(map);
             }

@@ -115,13 +115,14 @@ public class UserInfoController {
     public void add(HttpServletRequest request) {
         List<Sys_unit> sysUnitList = sysUnitService.query(Cnd.where("delFlag","=",0));
         request.setAttribute("sysUnitList",sysUnitList);
+
     }
 
     @At
     @Ok("json")
     @SLog(tag = "新建司机[${args[0].userName}]|手机:[${args[0].mobile}]", msg = "")
     @AdaptBy(type = WhaleAdaptor.class)
-    public Object addDo(@Param("..") User_Info userInfo, HttpServletRequest req) {
+    public Object addDo(@Param("..") User_Info userInfo, @Param("userSearch")Integer userSearch,HttpServletRequest req) {
 		try {
             userInfo.setUploadTime(new Date());
             userInfo.setBalance(0.00);
@@ -342,5 +343,12 @@ public class UserInfoController {
                 return userInfoService.listUserByLonAndLat(lon,lat);
             }
         }
+    }
+
+    @At("/listUserByQuery")
+    @Ok("json:full")
+    @RequiresAuthentication
+    public Object listUserByQuery(String queryStr) {
+        return userInfoService.listUserByQuery(queryStr);
     }
 }
