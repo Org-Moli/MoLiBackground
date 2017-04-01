@@ -84,9 +84,8 @@ layout("/layouts/platform.html"){
                     //d.nutz = $('#nutz').val();
                 }
             },
-            "order": [[0, "desc"]],
+            "order": [[6, "desc"]],
             "columns": [
-                        
                     {"data": "order_status", "bSortable": true},
                     {"data": "orderNo", "bSortable": true},
                     {"data": "dj_corporation", "bSortable": true},
@@ -100,7 +99,29 @@ layout("/layouts/platform.html"){
                     
             ],
             "columnDefs": [
-                {
+                	{
+                        "render": function (data, type, row) {
+                            if(data==0){
+                                return '执行中';
+                            }
+                            if(data==1){
+                                return '已销单';
+                            }
+                        },
+                        "targets": 1
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            if(data==0){
+                                return '人工';
+                            }
+                            if(data==1){
+                                return '司机补单';
+                            }
+                        },
+                        "targets": 4
+                    },
+                    {
                     "render": function (data, type, row) {
                         return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
                                 ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
@@ -111,7 +132,7 @@ layout("/layouts/platform.html"){
                                 '</ul></div>';
                     },
                     "targets": 10
-                }
+                   }
             ]
         });
         datatable.on('click', 'tr', function () {

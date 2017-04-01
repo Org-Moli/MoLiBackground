@@ -74,8 +74,7 @@ public class Order_Info {
 
     @Column
     @Comment("定价金额")
-    @Default("0")
-    private double order_pricing_amount;
+    private Double order_pricing_amount;
 
     @Column
     @Comment("订单备注")
@@ -127,205 +126,205 @@ public class Order_Info {
     @Comment("最后修改人name")
     private String updatee_user_name;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getOrderNo() {
-        return orderNo;
-    }
+	public String getOrderNo() {
+		return orderNo;
+	}
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
+	public void setOrderNo(String orderNo) {
+		this.orderNo = orderNo;
+	}
 
-    public String getDj_address() {
-        return dj_address;
-    }
+	public String getDj_address() {
+		return dj_address;
+	}
 
-    public void setDj_address(String dj_address) {
-        this.dj_address = dj_address;
-    }
+	public void setDj_address(String dj_address) {
+		this.dj_address = dj_address;
+	}
 
-    public Date getDj_apment_time() {
-        return dj_apment_time;
-    }
+	public Date getDj_apment_time() {
+		return dj_apment_time;
+	}
 
-    public void setDj_apment_time(Date dj_apment_time) {
-        this.dj_apment_time = dj_apment_time;
-    }
+	public void setDj_apment_time(Date dj_apment_time) {
+		this.dj_apment_time = dj_apment_time;
+	}
 
-    public int getNum_passengers() {
-        return num_passengers;
-    }
+	public int getNum_passengers() {
+		return num_passengers;
+	}
 
-    public void setNum_passengers(int num_passengers) {
-        this.num_passengers = num_passengers;
-    }
+	public void setNum_passengers(int num_passengers) {
+		this.num_passengers = num_passengers;
+	}
 
-    public String getMobile() {
-        return mobile;
-    }
+	public String getMobile() {
+		return mobile;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDj_order_source() {
-        return dj_order_source;
-    }
+	public String getDj_order_source() {
+		return dj_order_source;
+	}
 
-    public void setDj_order_source(String dj_order_source) {
-        this.dj_order_source = dj_order_source;
-    }
+	public void setDj_order_source(String dj_order_source) {
+		this.dj_order_source = dj_order_source;
+	}
 
-    public String getDj_corporation() {
-        return dj_corporation;
-    }
+	public String getDj_corporation() {
+		return dj_corporation;
+	}
 
-    public void setDj_corporation(String dj_corporation) {
-        this.dj_corporation = dj_corporation;
-    }
+	public void setDj_corporation(String dj_corporation) {
+		this.dj_corporation = dj_corporation;
+	}
 
-    public int getDj_manager_id() {
-        return dj_manager_id;
-    }
+	public int getDj_manager_id() {
+		return dj_manager_id;
+	}
 
-    public void setDj_manager_id(int dj_manager_id) {
-        this.dj_manager_id = dj_manager_id;
-    }
+	public void setDj_manager_id(int dj_manager_id) {
+		this.dj_manager_id = dj_manager_id;
+	}
 
-    public String getDj_manager_name() {
-        return dj_manager_name;
-    }
+	public String getDj_manager_name() {
+		return dj_manager_name;
+	}
 
-    public void setDj_manager_name(String dj_manager_name) {
-        this.dj_manager_name = dj_manager_name;
-    }
+	public void setDj_manager_name(String dj_manager_name) {
+		this.dj_manager_name = dj_manager_name;
+	}
 
-    public int getOrder_is_pricing() {
-        return order_is_pricing;
-    }
+	public int getOrder_is_pricing() {
+		return order_is_pricing;
+	}
 
-    public void setOrder_is_pricing(int order_is_pricing) {
-        this.order_is_pricing = order_is_pricing;
-    }
+	public void setOrder_is_pricing(int order_is_pricing) {
+		this.order_is_pricing = order_is_pricing;
+	}
 
-    public double getOrder_pricing_amount() {
-        return order_pricing_amount;
-    }
+	public Double getOrder_pricing_amount() {
+		return order_pricing_amount;
+	}
 
-    public void setOrder_pricing_amount(double order_pricing_amount) {
-        this.order_pricing_amount = order_pricing_amount;
-    }
+	public void setOrder_pricing_amount(Double order_pricing_amount) {
+		this.order_pricing_amount = order_pricing_amount;
+	}
 
-    public String getOrder_remark() {
-        return order_remark;
-    }
+	public String getOrder_remark() {
+		return order_remark;
+	}
 
-    public void setOrder_remark(String order_remark) {
-        this.order_remark = order_remark;
-    }
+	public void setOrder_remark(String order_remark) {
+		this.order_remark = order_remark;
+	}
 
-    public int getOrder_status() {
-        return order_status;
-    }
+	public int getOrder_status() {
+		return order_status;
+	}
 
-    public void setOrder_status(int order_status) {
-        this.order_status = order_status;
-    }
+	public void setOrder_status(int order_status) {
+		this.order_status = order_status;
+	}
 
-    public int getOrder_type() {
-        return order_type;
-    }
+	public int getOrder_type() {
+		return order_type;
+	}
 
-    public void setOrder_type(int order_type) {
-        this.order_type = order_type;
-    }
+	public void setOrder_type(int order_type) {
+		this.order_type = order_type;
+	}
 
-    public int getDj_sj_id() {
-        return dj_sj_id;
-    }
+	public int getDj_sj_id() {
+		return dj_sj_id;
+	}
 
-    public void setDj_sj_id(int dj_sj_id) {
-        this.dj_sj_id = dj_sj_id;
-    }
+	public void setDj_sj_id(int dj_sj_id) {
+		this.dj_sj_id = dj_sj_id;
+	}
 
-    public String getDj_sj_name() {
-        return dj_sj_name;
-    }
+	public String getDj_sj_name() {
+		return dj_sj_name;
+	}
 
-    public void setDj_sj_name(String dj_sj_name) {
-        this.dj_sj_name = dj_sj_name;
-    }
+	public void setDj_sj_name(String dj_sj_name) {
+		this.dj_sj_name = dj_sj_name;
+	}
 
-    public String getCancel_reamk() {
-        return cancel_reamk;
-    }
+	public String getCancel_reamk() {
+		return cancel_reamk;
+	}
 
-    public void setCancel_reamk(String cancel_reamk) {
-        this.cancel_reamk = cancel_reamk;
-    }
+	public void setCancel_reamk(String cancel_reamk) {
+		this.cancel_reamk = cancel_reamk;
+	}
 
-    public Date getOrder_create_time() {
-        return order_create_time;
-    }
+	public Date getOrder_create_time() {
+		return order_create_time;
+	}
 
-    public void setOrder_create_time(Date order_create_time) {
-        this.order_create_time = order_create_time;
-    }
+	public void setOrder_create_time(Date order_create_time) {
+		this.order_create_time = order_create_time;
+	}
 
-    public int getOrder_create_user_id() {
-        return order_create_user_id;
-    }
+	public int getOrder_create_user_id() {
+		return order_create_user_id;
+	}
 
-    public void setOrder_create_user_id(int order_create_user_id) {
-        this.order_create_user_id = order_create_user_id;
-    }
+	public void setOrder_create_user_id(int order_create_user_id) {
+		this.order_create_user_id = order_create_user_id;
+	}
 
-    public String getOrder_create_user_name() {
-        return order_create_user_name;
-    }
+	public String getOrder_create_user_name() {
+		return order_create_user_name;
+	}
 
-    public void setOrder_create_user_name(String order_create_user_name) {
-        this.order_create_user_name = order_create_user_name;
-    }
+	public void setOrder_create_user_name(String order_create_user_name) {
+		this.order_create_user_name = order_create_user_name;
+	}
 
-    public Date getUpdate_time() {
-        return update_time;
-    }
+	public Date getUpdate_time() {
+		return update_time;
+	}
 
-    public void setUpdate_time(Date update_time) {
-        this.update_time = update_time;
-    }
+	public void setUpdate_time(Date update_time) {
+		this.update_time = update_time;
+	}
 
-    public int getUpdate_user_id() {
-        return update_user_id;
-    }
+	public int getUpdate_user_id() {
+		return update_user_id;
+	}
 
-    public void setUpdate_user_id(int update_user_id) {
-        this.update_user_id = update_user_id;
-    }
+	public void setUpdate_user_id(int update_user_id) {
+		this.update_user_id = update_user_id;
+	}
 
-    public String getUpdatee_user_name() {
-        return updatee_user_name;
-    }
+	public String getUpdatee_user_name() {
+		return updatee_user_name;
+	}
 
-    public void setUpdatee_user_name(String updatee_user_name) {
-        this.updatee_user_name = updatee_user_name;
-    }
+	public void setUpdatee_user_name(String updatee_user_name) {
+		this.updatee_user_name = updatee_user_name;
+	}
 
 	@Override
 	public String toString() {
@@ -348,6 +347,8 @@ public class Order_Info {
 				+ update_user_id + ", updatee_user_name=" + updatee_user_name
 				+ "]";
 	}
+
+    
     
     
 }
