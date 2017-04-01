@@ -101,7 +101,7 @@ layout("/layouts/platform.html"){
                                 <div class="col-sm-6">
                                     <div class="input-group">
                                         <span class="input-group-addon">定价金额</span>
-                                        <input class="form-control"  name="order_pricing_amount" type="number" min="0"  max="999999999" required/>
+                                        <input class="form-control"  name="order_pricing_amount" type="number" min="0"  max="999999999" id="reFlag"/>
                                     </div>
                                 </div>
                             </div>
@@ -168,6 +168,8 @@ layout("/layouts/platform.html"){
                 if (data.code == 0) {
                     Toast.success(data.msg);
                     form.resetForm();
+                    $("#reFlag").removeAttr("required");
+                    $("#order_pricing_amount").hide();
                 } else {
                     Toast.error(data.msg);
                 }
@@ -177,6 +179,11 @@ layout("/layouts/platform.html"){
         
         $("#order_is_pricing").click(function(){
         	  $("#order_pricing_amount").toggle();
+        	  if(!$("#order_pricing_amount").is(':hidden')){
+        		  $("#reFlag").attr("required","");
+        	  }else{
+        		  $("#reFlag").removeAttr("required");
+        	  }
         });
 
         $('#dj_apment_time').datetimepicker({

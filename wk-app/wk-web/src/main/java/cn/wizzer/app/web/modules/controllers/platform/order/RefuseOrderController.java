@@ -31,7 +31,7 @@ public class RefuseOrderController {
 	private RefuseOrderServiceimpl refuseOrderService;
 
 	@At("/index")
-	@Ok("beetl:/platform/refuse/order/index.html")
+	@Ok("beetl:/platform/order/refuse/order/index.html")
 	@RequiresAuthentication
 	public void index() {
 
@@ -46,7 +46,7 @@ public class RefuseOrderController {
     }
 
     @At
-    @Ok("beetl:/platform/refuse/order/add.html")
+    @Ok("beetl:/platform/order/refuse/order/add.html")
     @RequiresAuthentication
     public void add() {
 
@@ -65,7 +65,7 @@ public class RefuseOrderController {
     }
 
     @At("/edit/?")
-    @Ok("beetl:/platform/refuse/order/edit.html")
+    @Ok("beetl:/platform/order/refuse/order/edit.html")
     @RequiresAuthentication
     public Object edit(String id) {
 		return refuseOrderService.fetch(id);
@@ -104,7 +104,7 @@ public class RefuseOrderController {
 
 
     @At("/detail/?")
-    @Ok("beetl:/platform/refuse/order/detail.html")
+    @Ok("beetl:/platform/order/refuse/order/detail.html")
     @RequiresAuthentication
 	public Object detail(String id) {
 		if (!Strings.isBlank(id)) {

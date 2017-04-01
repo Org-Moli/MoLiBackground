@@ -17,8 +17,7 @@ public class Order_Info {
     private Integer id;
 
     @Column
-    @Name
-    @Comment("订单号")
+    @Comment("订单号")  
     @ColDefine(notNull=true,type = ColType.VARCHAR, width = 50)
     private String orderNo;
 
@@ -73,7 +72,9 @@ public class Order_Info {
     private int order_is_pricing;
 
     @Column
-    @Comment("定价金额")
+    @Comment("定价金额")  
+    @Default("0")  
+    @ColDefine(customType="double",type=ColType.AUTO,width=15,precision=2)    
     private Double order_pricing_amount;
 
     @Column

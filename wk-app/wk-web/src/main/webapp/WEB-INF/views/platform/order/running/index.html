@@ -95,32 +95,32 @@ layout("/layouts/platform.html"){
                     {"data": "dj_address", "bSortable": true},
                     {"data": "name", "bSortable": true},
                     {"data": "mobile", "bSortable": true},
-                    {"data": "dj_sj_name", "bSortable": true},
+                    {"data": "dj_sj_name", "bSortable": true}
                     
             ],
             "columnDefs": [
-                	{
-                        "render": function (data, type, row) {
-                            if(data==0){
-                                return '执行中';
-                            }
-                            if(data==1){
-                                return '已销单';
-                            }
-                        },
-                        "targets": 1
-                    },
-                    {
-                        "render": function (data, type, row) {
-                            if(data==0){
-                                return '人工';
-                            }
-                            if(data==1){
-                                return '司机补单';
-                            }
-                        },
-                        "targets": 4
-                    },
+					{
+					    "render": function (data, type, row) {
+					        if(data==0){
+					            return '执行中';
+					        }
+					        if(data==1){
+					            return '已撤销';
+					        }
+					    },
+					    "targets": 0
+					},
+					{
+					    "render": function (data, type, row) {
+					        if(data==0){
+					            return '人工';
+					        }
+					        if(data==1){
+					            return '司机补单';
+					        }
+					    },
+					    "targets": 3
+					},
                     {
                     "render": function (data, type, row) {
                         return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
@@ -149,7 +149,7 @@ layout("/layouts/platform.html"){
         dialog.find("#okDel").bind("click", function (event) {
             var btn = $(this);
             btn.button("loading");
-            $.post("${base}/platform/order/delete/" + id, {}, function (data) {
+            $.post("${base}/platform/order/delete", {ids: id}, function (data) {
                 if (data.code == 0) {
                     datatable.ajax.reload(null,false);
                 } else {

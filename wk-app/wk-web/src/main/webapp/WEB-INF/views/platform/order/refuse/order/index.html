@@ -2,25 +2,14 @@
 layout("/layouts/platform.html"){
 %>
 <section class="content-wrap bg-white">
-    <header class="header navbar bg-white shadow">
-        <div class="btn-group tool-button">
-            <a id="add" class="btn btn-primary navbar-btn" href="${base}/platform/refuse/order/add" data-pjax><i class="ti-plus"></i> 新建Refuse_order</a>
-            <button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 删除选中</button>
-        </div>
-    </header>
     <div class=panel-body style="padding-top: 50px;">
         <div class="table-responsive no-border">
             <table class="table table-bordered table-striped mg-t datatable">
                 <thead>
                     <tr>
+                            <th>单号</th>
                             <th>拒单时间</th>
-                            <th>拒单原因</th>
-                            <th>订单创建人ID</th>
-                            <th>订单创建人name</th>
-                            <th>最后修改时间</th>
-                            <th>最后修改人ID</th>
-                            <th>最后修改人name</th>
-                            <th>操作</th>
+                            <th>备注</th>
                     </tr>
                 </thead>
             </table>
@@ -83,27 +72,12 @@ layout("/layouts/platform.html"){
             },
             "order": [[0, "desc"]],
             "columns": [
+                    {"data": "orderNo", "bSortable": true},
                     {"data": "refuse_time", "bSortable": true},
                     {"data": "refuse_reason", "bSortable": true},
-                    {"data": "order_create_user_id", "bSortable": true},
-                    {"data": "order_create_user_name", "bSortable": true},
-                    {"data": "update_time", "bSortable": true},
-                    {"data": "update_user_id", "bSortable": true},
-                    {"data": "updatee_user_name", "bSortable": true},
+                   
             ],
             "columnDefs": [
-                {
-                    "render": function (data, type, row) {
-                        return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
-                                ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
-                                '<li><a href="${base}/platform/refuse/order/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
-                                '<li><a href="${base}/platform/refuse/order/edit/' + row.id + '" data-pjax>修改</a></li>' +
-                                '<li class="divider"></li>' +
-                                '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
-                                '</ul></div>';
-                    },
-                    "targets": 7
-                }
             ]
         });
         datatable.on('click', 'tr', function () {
