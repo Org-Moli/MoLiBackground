@@ -2,41 +2,43 @@
 layout("/layouts/platform.html"){
 %>
 <section class="content-wrap bg-white">
-    <header class="header navbar bg-white shadow">
-        <div class="btn-group tool-button">
-            <a id="add" class="btn btn-primary navbar-btn" href="${base}/platform/settlement/order/add" data-pjax><i class="ti-plus"></i> 新建Settlement_order</a>
-            <button class="btn btn-danger navbar-btn" onclick="delCheck()"><i class="ti-close"></i> 删除选中</button>
+ <header class="header navbar bg-white shadow">
+<input type="hidden" id="hidStatus"/>
+<input type="hidden" id="hidSearch"/>
+ <div class="btn-group tool-button" style="padding-left: 200px;">
+        <input type="email" class="form-control" id="searchText" placeholder="订单号、客户电话、司机电话">
         </div>
-    </header>
+        <div class="btn-group tool-button selectQry">
+            <select class="form-control" id="select_status">
+                <option value="">结算状态</option>
+                <option value="0">现金</option>
+                <option value="1">签单</option>
+                <option value="2">余额</option>
+            </select>
+        </div>
+        <div class="btn-group tool-button">
+            <a class="btn btn-primary navbar-btn" href="javascript:goQuery();" data-pjax><i class="ti-search"></i> 搜索</a>
+        </div>
+ </header>
+	
     <div class=panel-body style="padding-top: 50px;">
         <div class="table-responsive no-border">
             <table class="table table-bordered table-striped mg-t datatable">
                 <thead>
                     <tr>
-                            <th>订单类型</th>
-                            <th>出发时间</th>
-                            <th>预约地—-代驾地点</th>
-                            <th>结算时间</th>
-                            <th>目的地</th>
-                            <th>里程</th>
-                            <th>等候时间_分钟</th>
-                            <th>应收金额</th>
-                            <th>实收金额</th>
-                            <th>客户手机</th>
-                            <th>客户姓名</th>
-                            <th>接单司机手机</th>
-                            <th>接单司机名</th>
-                            <th>接单司机ID</th>
-                            <th>车牌号</th>
-                            <th>备注</th>
-                            <th>是否已报单</th>
-                            <th>订单创建时间</th>
-                            <th>订单创建人ID</th>
-                            <th>订单创建人name</th>
-                            <th>最后修改时间</th>
-                            <th>最后修改人ID</th>
-                            <th>最后修改人name</th>
-                            <th>操作</th>
+                    
+                        <th>单号</th>
+                        <th>公司</th>
+                        <th>类型</th>
+                        <th>出发时间/预约地</th>
+                        <th>结算时间/目的地</th>
+                        <th>里程</th>
+                        <th>等候</th>    
+                        <th>应收</th>
+                        <th>实收</th>
+                        <th>客户</th>    
+                        <th>司机</th>    
+                        <th>车牌号</th>
                     </tr>
                 </thead>
             </table>
@@ -72,6 +74,13 @@ layout("/layouts/platform.html"){
     </div>
 </div>
 <script language="JavaScript">
+	function goQuery()
+	{
+	    $("#hidStatus").val($("#select_status").val());
+	    $("#hidSearch").val($("#searchText").val());
+	    datatable.ajax.reload();
+	}
+
     var datatable;
     function initDatatable() {
         datatable = $('.datatable').DataTable({
@@ -94,48 +103,73 @@ layout("/layouts/platform.html"){
                 "url": "${base}/platform/settlement/order/data",
                 "type": "post",
                 "data": function (d) {
-                    //d.nutz = $('#nutz').val();
+                    d.status=$("#hidStatus").val();
+                    d.stext=$("#hidSearch").val();
                 }
             },
             "order": [[0, "desc"]],
             "columns": [
+                    {"data": "orderNo", "bSortable": true},
+                    {"data": "dj_corporation", "bSortable": true},
                     {"data": "order_type", "bSortable": true},
                     {"data": "start_time", "bSortable": true},
-                    {"data": "dj_address", "bSortable": true},
-                    {"data": "Settlement_end_time", "bSortable": true},
-                    {"data": "dj_end_address", "bSortable": true},
+                    {"data": "settlement_end_time", "bSortable": true},
                     {"data": "mileage", "bSortable": true},
                     {"data": "waited_time", "bSortable": true},
                     {"data": "re_amount", "bSortable": true},
                     {"data": "ac_amount", "bSortable": true},
-                    {"data": "mobile", "bSortable": true},
                     {"data": "name", "bSortable": true},
-                    {"data": "dj_sj_mobile", "bSortable": true},
                     {"data": "dj_sj_name", "bSortable": true},
-                    {"data": "dj_sj_id", "bSortable": true},
                     {"data": "dj_plate_number", "bSortable": true},
-                    {"data": "remark", "bSortable": true},
-                    {"data": "is_check", "bSortable": true},
-                    {"data": "order_create_time", "bSortable": true},
-                    {"data": "order_create_user_id", "bSortable": true},
-                    {"data": "order_create_user_name", "bSortable": true},
-                    {"data": "update_time", "bSortable": true},
-                    {"data": "update_user_id", "bSortable": true},
-                    {"data": "updatee_user_name", "bSortable": true},
             ],
             "columnDefs": [
+				{
+					    "render": function (data, type, row) {
+					        if(data==0){
+					            return '人工';
+					        }
+					        if(data==1){
+					            return '司机补单';
+					        }
+					    },
+					    "targets": 2
+				},
                 {
                     "render": function (data, type, row) {
-                        return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
-                                ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
-                                '<li><a href="${base}/platform/settlement/order/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
-                                '<li><a href="${base}/platform/settlement/order/edit/' + row.id + '" data-pjax>修改</a></li>' +
-                                '<li class="divider"></li>' +
-                                '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
-                                '</ul></div>';
+                        return  data+" - "+row.dj_address;
                     },
-                    "targets": 23
+                    "targets": 3
+                },
+                {
+                    "render": function (data, type, row) {
+                        return  data+" - "+row.dj_end_address;
+                    },
+                    "targets": 4
+                },
+                {
+                    "render": function (data, type, row) {
+                        return  data+"<br>"+row.mobile;
+                    },
+                    "targets": 9
+                },
+                {
+                    "render": function (data, type, row) {
+                        return  data+"<br>"+row.dj_sj_mobile;
+                    },
+                    "targets": 10
                 }
+//                 {
+//                     "render": function (data, type, row) {
+//                         return '<div class="btn-group"><button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">' +
+//                                 ' <i class="ti-settings"></i> <span class="ti-angle-down"></span></button><ul class="dropdown-menu" role="menu">' +
+//                                 '<li><a href="${base}/platform/settlement/order/detail/' + row.id + '" data-toggle="modal" data-target="#dialogDetail">查看</a></li>' +
+//                                 '<li><a href="${base}/platform/settlement/order/edit/' + row.id + '" data-pjax>修改</a></li>' +
+//                                 '<li class="divider"></li>' +
+//                                 '<li><a href="javascript:;" onclick="del(\'' + row.id + '\')">删除</a></li>' +
+//                                 '</ul></div>';
+//                     },
+//                     "targets": 12
+//                 }
             ]
         });
         datatable.on('click', 'tr', function () {

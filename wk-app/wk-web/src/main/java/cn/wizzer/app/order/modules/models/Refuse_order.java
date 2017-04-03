@@ -31,6 +31,25 @@ public class Refuse_order {
     @Comment("拒单原因")
     private String refuse_reason;
     
+    @Column
+    @Comment("客户手机")
+    private String mobile;
+
+    @Column
+    @Comment("客户姓名")
+    private String name;
+    
+    @Column
+    @Comment("接单司机ID")
+    private int dj_sj_id;
+
+    @Column
+    @Comment("接单司机名")
+    private String dj_sj_name;
+    
+    @Column  
+    @Comment("接单司机手机")
+    private String dj_sj_mobile;
     
     @Column
     @Comment("订单创建人ID")

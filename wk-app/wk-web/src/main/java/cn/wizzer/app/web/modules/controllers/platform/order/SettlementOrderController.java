@@ -3,8 +3,11 @@ package cn.wizzer.app.web.modules.controllers.platform.order;
 
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.nutz.dao.Cnd;
+import org.nutz.dao.Condition;
+import org.nutz.dao.util.cri.Static;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.lang.Strings;
@@ -23,30 +26,74 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
+/**
+ * 结算，异常订单显示后台
+ * @author Hans
+ *
+ */
 @IocBean
 @At("/platform/settlement/order")
 public class SettlementOrderController {
 	private static final Log log = Logs.get();
 	@Inject
 	private SettlementOrderServiceimpl settlementOrderService;
-
+    
+	//已结算界面
 	@At("")
-	@Ok("beetl:/platform/settlement/order/index.html")
+	@Ok("beetl:/platform/order/settlement/order/index.html")
 	@RequiresAuthentication
 	public void index() {
 
 	}
+	
+	//异常订单
+	@At("/err")
+	@Ok("beetl:/platform/order/settlement/order/errIndex.html")
+	@RequiresAuthentication
+	public void errIndex() {
+         
+	}
+	
+	//已报单
+	@At("/bd")
+	@Ok("beetl:/platform/order/settlement/order/bdIndex.html")
+	@RequiresAuthentication
+	public void bdIndex() {
+         
+	}
+	
+	
 
 	@At
 	@Ok("json:full")
 	@RequiresAuthentication
-	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
+	public Object data(@Param("length") int length, 
+			@Param("start") int start, 
+			@Param("draw") int draw, 
+			@Param("::order") List<DataTableOrder> order, 
+			@Param("::columns") List<DataTableColumn> columns,
+			String stext,Integer status,Integer isErrOrder,Integer bdOrder) {
 		Cnd cnd = Cnd.NEW();
+		if(status!=null){
+			 cnd.and("settlement_type","=",status);
+		}
+		if(StringUtils.isNotBlank(stext)){
+			cnd.or("orderNo","LIKE","%"+stext+"%");
+			cnd.or("mobile","LIKE","%"+stext+"%");
+			cnd.or("dj_sj_mobile","LIKE","%"+stext+"%");
+		}
+		if(isErrOrder!=null){
+			//异常订单为：订单里程为小于1公里的、行驶时间小于2分钟的，实收金额和应收金额不符的
+			cnd.and(new Static(" ( mileage < 1 or  ( (UNIX_TIMESTAMP(settlement_end_time) - UNIX_TIMESTAMP(start_time))/60 < 2 )  or  re_amount != ac_amount ) "));
+		}
+		if(bdOrder!=null){
+			 cnd.and("is_check","=",bdOrder);
+		}
     	return settlementOrderService.data(length, start, draw, order, columns, cnd, null);
     }
 
     @At
-    @Ok("beetl:/platform/settlement/order/add.html")
+    @Ok("beetl:/platform/order/settlement/order/add.html")
     @RequiresAuthentication
     public void add() {
 
@@ -65,7 +112,7 @@ public class SettlementOrderController {
     }
 
     @At("/edit/?")
-    @Ok("beetl:/platform/settlement/order/edit.html")
+    @Ok("beetl:/platform/order/settlement/order/edit.html")
     @RequiresAuthentication
     public Object edit(String id) {
 		return settlementOrderService.fetch(id);
@@ -105,7 +152,7 @@ public class SettlementOrderController {
 
 
     @At("/detail/?")
-    @Ok("beetl:/platform/settlement/order/detail.html")
+    @Ok("beetl:/platform/order/settlement/order/detail.html")
     @RequiresAuthentication
 	public Object detail(String id) {
 		if (!Strings.isBlank(id)) {

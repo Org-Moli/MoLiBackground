@@ -1,4 +1,5 @@
 package cn.wizzer.app.web.modules.controllers.platform.order;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -52,13 +53,23 @@ public class OrderInfoController {
 	@At
 	@Ok("json:full")
 	@RequiresAuthentication
-	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns, Integer orderStatus) {
+	public Object data(@Param("length") int length, 
+			@Param("start") int start,
+			@Param("draw") int draw,
+			@Param("::order") List<DataTableOrder> order,
+			@Param("::columns") List<DataTableColumn> columns, 
+			Integer orderStatus,String stext) {
 		 
 		Cnd cnd = Cnd.NEW();
 		if(orderStatus != null)
         {
             cnd.and("order_status","=",orderStatus);
         }
+		if(StringUtils.isNotBlank(stext)){
+			cnd.or("orderNo","like","%"+stext+"%");
+			cnd.or("name","like","%"+stext+"%");
+			cnd.or("dj_sj_name","like","%"+stext+"%");
+		}
     	return orderInfoService.data(length, start, draw, order, columns, cnd, null);
     }
 

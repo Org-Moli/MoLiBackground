@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.Inject;
@@ -30,7 +31,7 @@ public class RefuseOrderController {
 	@Inject
 	private RefuseOrderServiceimpl refuseOrderService;
 
-	@At("/index")
+	@At("")
 	@Ok("beetl:/platform/order/refuse/order/index.html")
 	@RequiresAuthentication
 	public void index() {
@@ -40,8 +41,19 @@ public class RefuseOrderController {
 	@At
 	@Ok("json:full")
 	@RequiresAuthentication
-	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
+	public Object data(@Param("length") int length,
+			@Param("start") int start, 
+			@Param("draw") int draw, 
+			@Param("::order") List<DataTableOrder> order, 
+			@Param("::columns") List<DataTableColumn> columns,
+			String stext
+			) {
 		Cnd cnd = Cnd.NEW();
+		if(StringUtils.isNotBlank(stext)){
+			cnd.or("orderNo","LIKE","%"+stext+"%");
+			cnd.or("mobile","LIKE","%"+stext+"%");
+			cnd.or("dj_sj_mobile","LIKE","%"+stext+"%");
+		}
     	return refuseOrderService.data(length, start, draw, order, columns, cnd, null);
     }
 

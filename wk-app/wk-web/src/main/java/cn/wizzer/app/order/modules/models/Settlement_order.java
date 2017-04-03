@@ -27,6 +27,10 @@ public class Settlement_order {
     private int order_type;
     
     @Column
+    @Comment("结算类型")
+    private int settlement_type;
+    
+    @Column
     @Comment("出发时间")
     @ColDefine(type = ColType.DATETIME)
     private Date start_time;
@@ -37,9 +41,13 @@ public class Settlement_order {
     private String dj_address;
     
     @Column
+    @Comment("代驾所属公司")
+    private String dj_corporation;  
+    
+    @Column
     @Comment("结算时间")
     @ColDefine(type = ColType.DATETIME)
-    private Date Settlement_end_time;
+    private Date settlement_end_time;
     
     @Column
     @Comment("目的地")
@@ -70,7 +78,7 @@ public class Settlement_order {
     @Comment("客户姓名")
     private String name;
     
-    @Column
+    @Column  
     @Comment("接单司机手机")
     private String dj_sj_mobile;
     
@@ -146,6 +154,14 @@ public class Settlement_order {
 		this.order_type = order_type;
 	}
 
+	public int getSettlement_type() {
+		return settlement_type;
+	}
+
+	public void setSettlement_type(int settlement_type) {
+		this.settlement_type = settlement_type;
+	}
+
 	public Date getStart_time() {
 		return start_time;
 	}
@@ -162,12 +178,20 @@ public class Settlement_order {
 		this.dj_address = dj_address;
 	}
 
+	public String getDj_corporation() {
+		return dj_corporation;
+	}
+
+	public void setDj_corporation(String dj_corporation) {
+		this.dj_corporation = dj_corporation;
+	}
+
 	public Date getSettlement_end_time() {
-		return Settlement_end_time;
+		return settlement_end_time;
 	}
 
 	public void setSettlement_end_time(Date settlement_end_time) {
-		Settlement_end_time = settlement_end_time;
+		this.settlement_end_time = settlement_end_time;
 	}
 
 	public String getDj_end_address() {
@@ -250,7 +274,7 @@ public class Settlement_order {
 		this.dj_sj_id = dj_sj_id;
 	}
 
-	public String getDj_plate_number() {
+	public String getDj_plate_number() {   
 		return dj_plate_number;
 	}
 
@@ -325,9 +349,11 @@ public class Settlement_order {
 	@Override
 	public String toString() {
 		return "Settlement_order [id=" + id + ", orderNo=" + orderNo
-				+ ", order_type=" + order_type + ", start_time=" + start_time
-				+ ", dj_address=" + dj_address + ", Settlement_end_time="
-				+ Settlement_end_time + ", dj_end_address=" + dj_end_address
+				+ ", order_type=" + order_type + ", settlement_type="
+				+ settlement_type + ", start_time=" + start_time
+				+ ", dj_address=" + dj_address + ", dj_corporation="
+				+ dj_corporation + ", settlement_end_time="
+				+ settlement_end_time + ", dj_end_address=" + dj_end_address
 				+ ", mileage=" + mileage + ", waited_time=" + waited_time
 				+ ", re_amount=" + re_amount + ", ac_amount=" + ac_amount
 				+ ", mobile=" + mobile + ", name=" + name + ", dj_sj_mobile="
@@ -341,6 +367,14 @@ public class Settlement_order {
 				+ update_user_id + ", updatee_user_name=" + updatee_user_name
 				+ "]";
 	}
+
+
+    
+    
+    
+
+
+
     
     
     

@@ -17,6 +17,7 @@ public class Order_Info {
     private Integer id;
 
     @Column
+    @Name
     @Comment("订单号")  
     @ColDefine(notNull=true,type = ColType.VARCHAR, width = 50)
     private String orderNo;
@@ -96,6 +97,10 @@ public class Order_Info {
     @Column
     @Comment("接单司机名")
     private String dj_sj_name;
+    
+    @Column  
+    @Comment("接单司机手机")
+    private String dj_sj_mobile;
 
     @Column
     @Comment("销单原因")
@@ -271,6 +276,14 @@ public class Order_Info {
 		this.dj_sj_name = dj_sj_name;
 	}
 
+	public String getDj_sj_mobile() {
+		return dj_sj_mobile;
+	}
+
+	public void setDj_sj_mobile(String dj_sj_mobile) {
+		this.dj_sj_mobile = dj_sj_mobile;
+	}
+
 	public String getCancel_reamk() {
 		return cancel_reamk;
 	}
@@ -340,14 +353,17 @@ public class Order_Info {
 				+ ", order_pricing_amount=" + order_pricing_amount
 				+ ", order_remark=" + order_remark + ", order_status="
 				+ order_status + ", order_type=" + order_type + ", dj_sj_id="
-				+ dj_sj_id + ", dj_sj_name=" + dj_sj_name + ", cancel_reamk="
-				+ cancel_reamk + ", order_create_time=" + order_create_time
+				+ dj_sj_id + ", dj_sj_name=" + dj_sj_name + ", dj_sj_mobile="
+				+ dj_sj_mobile + ", cancel_reamk=" + cancel_reamk
+				+ ", order_create_time=" + order_create_time
 				+ ", order_create_user_id=" + order_create_user_id
 				+ ", order_create_user_name=" + order_create_user_name
 				+ ", update_time=" + update_time + ", update_user_id="
 				+ update_user_id + ", updatee_user_name=" + updatee_user_name
 				+ "]";
 	}
+
+	
 
     
     

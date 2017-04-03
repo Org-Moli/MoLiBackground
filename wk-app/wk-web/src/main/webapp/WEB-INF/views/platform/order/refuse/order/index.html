@@ -2,6 +2,15 @@
 layout("/layouts/platform.html"){
 %>
 <section class="content-wrap bg-white">
+<header class="header navbar bg-white shadow">
+<input type="hidden" id="hidSearch"/>
+ 		<div class="btn-group tool-button" style="padding-left: 200px;">
+        <input type="email" class="form-control" id="searchText" size="50" placeholder="输入订单号、客户电话、司机电话">
+        </div>
+        <div class="btn-group tool-button">
+            <a class="btn btn-primary navbar-btn" href="javascript:goQuery();" data-pjax><i class="ti-search"></i> 搜索</a>
+        </div>
+ </header>
     <div class=panel-body style="padding-top: 50px;">
         <div class="table-responsive no-border">
             <table class="table table-bordered table-striped mg-t datatable">
@@ -45,6 +54,13 @@ layout("/layouts/platform.html"){
     </div>
 </div>
 <script language="JavaScript">
+
+function goQuery()
+{
+    $("#hidSearch").val($("#searchText").val());
+    datatable.ajax.reload();
+}
+
     var datatable;
     function initDatatable() {
         datatable = $('.datatable').DataTable({
@@ -68,6 +84,7 @@ layout("/layouts/platform.html"){
                 "type": "post",
                 "data": function (d) {
                     //d.nutz = $('#nutz').val();
+                    d.stext=("#hidSearch").val();
                 }
             },
             "order": [[0, "desc"]],
