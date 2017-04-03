@@ -38,12 +38,27 @@ public class OrderInfoController {
 	public void index() {
            
 	}
+	
+	//已销单主页面
+	@At("/close")
+	@Ok("beetl:/platform/order/running/closeIndex.html")
+	@RequiresAuthentication
+	public void closeIndex() {
+           
+	}
+	
+	
 
 	@At
 	@Ok("json:full")
 	@RequiresAuthentication
-	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns) {
+	public Object data(@Param("length") int length, @Param("start") int start, @Param("draw") int draw, @Param("::order") List<DataTableOrder> order, @Param("::columns") List<DataTableColumn> columns, Integer orderStatus) {
+		 
 		Cnd cnd = Cnd.NEW();
+		if(orderStatus != null)
+        {
+            cnd.and("order_status","=",orderStatus);
+        }
     	return orderInfoService.data(length, start, draw, order, columns, cnd, null);
     }
 
@@ -121,6 +136,10 @@ public class OrderInfoController {
 		}
 		return null;
     }
+    
+    
+    
+    
     
     private String createOrderNo(){
 			int hashCodeV = UUID.randomUUID().toString().hashCode();
